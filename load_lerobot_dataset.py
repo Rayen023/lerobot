@@ -37,29 +37,14 @@ from lerobot.common.datasets.lerobot_dataset import (
     LeRobotDatasetMetadata,
 )
 
-# We ported a number of existing datasets ourselves, use this to see the list:
-print("List of available datasets:")
-pprint(lerobot.available_datasets)
-
-# You can also browse through the datasets created/ported by the community on the hub using the hub api:
+# Get all available datasets (built-in + community hub)
 hub_api = HfApi()
-repo_ids = [
+all_datasets = lerobot.available_datasets + [
     info.id
     for info in hub_api.list_datasets(task_categories="robotics", tags=["LeRobot"])
 ]
-pprint(repo_ids)
-
-all_datasets = []
-all_datasets.append(lerobot.available_datasets)
-all_datasets.append(repo_ids)
-
-all_datasets = [item for sublist in all_datasets for item in sublist]
-print("Total number of datasets available:", len(all_datasets))
-
-# Return items that have 'kuka' in their repo_id
 kuka_datasets = [repo_id for repo_id in all_datasets if "kuka" in repo_id.lower()]
-print("Kuka datasets:")
-pprint(kuka_datasets)
+print(f"Total datasets: {len(all_datasets)}, Kuka datasets: {kuka_datasets}")
 
 # Or simply explore them in your web browser directly at:
 # https://huggingface.co/datasets?other=LeRobot

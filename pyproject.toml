@@ -78,6 +78,8 @@ dependencies = [
     "pytest>=8.4.1",
     "ffmpeg>=1.4",
     "dotenv>=0.9.9",
+    "jupyter>=1.1.1",
+    "ipykernel>=6.29.5",
 ]
 
 [project.optional-dependencies]
