@@ -11,7 +11,7 @@ import cv2
 
 def main():
     # Open camera (using device ID 0 which corresponds to /dev/video0)
-    cap = cv2.VideoCapture(0)
+    cap = cv2.VideoCapture(1)
 
     # Check if camera opened successfully
     if not cap.isOpened():
