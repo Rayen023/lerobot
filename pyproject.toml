@@ -83,6 +83,8 @@ dependencies = [
     "num2words>=0.5.14",
     "accelerate>=1.8.1",
     "matplotlib>=3.10.3",
+    "feetech-servo-sdk>=1.0.0",
+    "opencv-python>=4.11.0.86",
 ]
 
 [project.optional-dependencies]
