@@ -21,7 +21,7 @@ camera_config = {
         width=640,
         height=480,
         color_mode=ColorMode.BGR,
-        rotation=Cv2Rotation.ROTATE_180,
+        rotation=Cv2Rotation.NO_ROTATION,
     ),
 }
 

@@ -4,3 +4,62 @@ python lerobot/scripts/train.py --policy.path=lerobot/smolvla_base --dataset.rep
 """
 
 # !huggingface-cli login
+import subprocess
+import os
+
+# Configuration
+root = "/home/recherche-a/.cache/huggingface/lerobot/"
+repo_id = "Rayen023/so101_follower_put_the_candy_in_the_black_cup_b570d9"
+output_dir = f"outputs/train/{repo_id.split('/')[-1]}_smolvla"
+steps = int(20000/6)  # Convert to integer for command line
+batch_size = 64
+
+def run_training():
+    """Run the SmolVLA training with local dataset"""
+    
+    # Construct the dataset root path
+    dataset_root = os.path.join(root, repo_id)
+    
+    # Build the command
+    cmd = [
+        "python", "src/lerobot/scripts/train.py",
+        "--policy.path=lerobot/smolvla_base",
+        "--policy.push_to_hub=false",  # Disable pushing to hub
+        f"--dataset.repo_id={repo_id}",
+        f"--dataset.root={dataset_root}",
+        f"--batch_size={batch_size}",
+        f"--steps={steps}",
+        f"--output_dir={output_dir}",
+        f"--job_name={repo_id.split('/')[-1]}_training",
+        "--policy.device=cuda",
+        # "--wandb.enable=true"
+    ]
+    
+    print("Starting SmolVLA training with the following configuration:")
+    print(f"Dataset: {repo_id}")
+    print(f"Dataset root: {dataset_root}")
+    print(f"Output directory: {output_dir}")
+    print(f"Steps: {steps}")
+    print(f"Batch size: {batch_size}")
+    print(f"Command: {' '.join(cmd)}")
+    print("-" * 80)
+    
+    # Check if dataset exists
+    if not os.path.exists(dataset_root):
+        print(f"Warning: Dataset directory does not exist: {dataset_root}")
+        print("Make sure your dataset is downloaded or specify the correct path.")
+        return
+    
+    try:
+        # Run the training command
+        result = subprocess.run(cmd, check=True, cwd="/home/recherche-a/OneDrive_recherche_a/Linux_onedrive/Projects_linux/lerobot")
+        print("Training completed successfully!")
+    except subprocess.CalledProcessError as e:
+        print(f"Training failed with error code {e.returncode}")
+        print("Check the output above for error details.")
+    except FileNotFoundError:
+        print("Error: Could not find the training script. Make sure you're in the correct directory.")
+
+if __name__ == "__main__":
+    run_training()
+
