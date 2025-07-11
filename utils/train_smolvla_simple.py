@@ -11,7 +11,7 @@ import os
 root = "/home/recherche-a/.cache/huggingface/lerobot/"
 repo_id = "Rayen023/so101_follower_put_the_candy_in_the_black_cup_b570d9"
 output_dir = f"outputs/train/{repo_id.split('/')[-1]}_smolvla"
-steps = int(20000/6)  # Convert to integer for command line
+steps = int(20000/2)  # Convert to integer for command line
 batch_size = 64
 
 def run_training():

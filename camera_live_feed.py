@@ -11,7 +11,7 @@ import cv2
 
 def main():
     # Open camera (using device ID 0 which corresponds to /dev/video0)
-    cap = cv2.VideoCapture(1)
+    cap = cv2.VideoCapture(2)
 
     # Check if camera opened successfully
     if not cap.isOpened():
@@ -19,8 +19,8 @@ def main():
         sys.exit(1)
 
     # Set camera properties to match detected specifications
-    cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
-    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
+    cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1920)
+    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 1080)
     cap.set(cv2.CAP_PROP_FPS, 30)
 
     print("Camera opened successfully!")

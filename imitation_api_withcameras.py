@@ -17,7 +17,7 @@ camera_config = {
     ),
     "up_view": OpenCVCameraConfig(
         index_or_path="/dev/video2",
-        fps=25,
+        fps=20,
         width=640,
         height=480,
         color_mode=ColorMode.BGR,
@@ -28,12 +28,12 @@ camera_config = {
 
 teleop_config = SO101LeaderConfig(
     port="/dev/ttyACM0",
-    id="my_leader_arm2",
+    id="my_leader_arm_1",
 )
 
 robot_config = SO101FollowerConfig(
     port="/dev/ttyACM1",
-    id="my_follower_arm",
+    id="my_follower_arm_1",
     cameras=camera_config,
 )
 
@@ -51,7 +51,7 @@ for key, value in observation.items():
         print(f"{key}: {value}")
 
 print(observation["wrist_view"].shape)  # (480, 640, 3)
-print(observation["up_view"].shape)  # (640, 480, 3)
+print(observation["up_view"].shape)  # (480, 640, 3)
 
 while True:
     observation = robot.get_observation()
