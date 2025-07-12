@@ -5,7 +5,6 @@ This script will scan for available camera devices and display basic information
 """
 
 import sys
-
 import cv2
 
 
