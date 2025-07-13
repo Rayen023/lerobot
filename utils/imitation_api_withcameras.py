@@ -17,7 +17,7 @@ camera_config = {
     ),
     "up_view": OpenCVCameraConfig(
         index_or_path="/dev/video2",
-        fps=20,
+        fps=30,
         width=640,
         height=480,
         color_mode=ColorMode.BGR,

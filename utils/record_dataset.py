@@ -13,11 +13,11 @@ from lerobot.cameras.configs import CameraConfig, ColorMode, Cv2Rotation
 import uuid
 
 
-NUM_EPISODES = 20
+NUM_EPISODES = 50
 FPS = 30
-EPISODE_TIME_SEC = 15
+EPISODE_TIME_SEC = 30
 RESET_TIME_SEC = 10
-TASK_DESCRIPTION = "Put the candy in the grey black cup"
+TASK_DESCRIPTION = "Put the red lego block in the black cup"
 
 # Create the robot and teleoperator configurations
 camera_config = {
@@ -31,7 +31,7 @@ camera_config = {
     ),
     "up_view": OpenCVCameraConfig(
         index_or_path="/dev/video2",
-        fps=25,
+        fps=30,
         width=640,
         height=480,
         color_mode=ColorMode.RGB,
@@ -42,12 +42,12 @@ camera_config = {
 
 teleop_config = SO101LeaderConfig(
     port="/dev/ttyACM0",
-    id="my_leader_arm2",
+    id="my_leader_arm_1",
 )
 
 robot_config = SO101FollowerConfig(
     port="/dev/ttyACM1",
-    id="my_follower_arm",
+    id="my_follower_arm_1",
     cameras=camera_config,
 )
 
