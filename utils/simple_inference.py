@@ -6,7 +6,7 @@ Simple inference script that runs the lerobot.record command with specified para
 import subprocess
 import sys
 import os
-import uuid
+from datetime import datetime
 
 # camera_config = {
 #     "wrist_view": OpenCVCameraConfig(
@@ -39,8 +39,8 @@ import uuid
 #     cameras=camera_config,
 # )
 def run_inference():
-    # Generate unique identifier for this run
-    unique_id = str(uuid.uuid4())[:8]  # Use first 8 characters of UUID
+    # Generate timestamp-based identifier for this run
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     
     TASK_DESCRIPTION = "Put the red lego block in the black cup"
     ROBOT_PORT = "/dev/ttyACM1"
@@ -48,7 +48,10 @@ def run_inference():
     POLICY_PATH = "outputs/train/so101_follower_put_the_red_lego_block_in_the_black_cup_bf1e90_smolvla/checkpoints/last/pretrained_model"
     EPISODE_TIME_SEC = 50  
     NUM_EPISODES = 1
-    DATASET_REPO_ID = f"Rayen023_evals/eval_{TASK_DESCRIPTION.replace(' ', '_').lower()}_{unique_id}"
+    
+    # Create informative dataset repo ID with timestamp
+    task_name = TASK_DESCRIPTION.replace(' ', '_').lower()
+    DATASET_REPO_ID = f"Rayen023_evals/eval_{task_name}_{timestamp}"
     
     # Camera configuration as a JSON string
     camera_config = '{"wrist_view": {"type": "opencv", "index_or_path": "/dev/video0", "width": 640, "height": 480, "fps": 30}, "up_view": {"type": "opencv", "index_or_path": "/dev/video2", "width": 640, "height": 480, "fps": 30}}'
@@ -70,7 +73,8 @@ def run_inference():
     
     print("Running inference command:")
     print(" ".join(cmd))
-    print(f"Unique run ID: {unique_id}")
+    print(f"Timestamp: {timestamp}")
+    print(f"Task: {TASK_DESCRIPTION}")
     print("\n" + "="*50 + "\n")
     
     try:

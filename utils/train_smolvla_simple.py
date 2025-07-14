@@ -6,14 +6,20 @@ python lerobot/scripts/train.py --policy.path=lerobot/smolvla_base --dataset.rep
 # !huggingface-cli login
 import subprocess
 import os
-import uuid
+from datetime import datetime
 
 # Configuration
 root = "/home/recherche-a/.cache/huggingface/lerobot/"
 repo_id = "Rayen023/so101_follower_put_the_red_lego_block_in_the_black_cup_bf1e90" 
-output_dir = f"outputs/train/{repo_id.split('/')[-1]}_smolvla_{str(uuid.uuid4())[:8]}"  # Unique output directory
+
+# Generate timestamp for unique naming
+timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+dataset_name = repo_id.split('/')[-1]
 steps = int(20000)
 batch_size = 32  # 96 bs uses 24GB of GPU memory, 64 bs uses 16GB of GPU memory
+
+# Create informative output directory with timestamp, batch size, and steps
+output_dir = f"outputs/train/{dataset_name}_smolvla_bs{batch_size}_steps{steps}_{timestamp}"
 
 def run_training():
     """Run the SmolVLA training with local dataset"""
@@ -31,7 +37,7 @@ def run_training():
         f"--batch_size={batch_size}",
         f"--steps={steps}",
         f"--output_dir={output_dir}",
-        f"--job_name={repo_id.split('/')[-1]}_training",
+        f"--job_name={dataset_name}_smolvla_bs{batch_size}_steps{steps}_{timestamp}",
         "--policy.device=cuda",
         # "--wandb.enable=true"
     ]

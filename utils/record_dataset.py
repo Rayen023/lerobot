@@ -10,7 +10,7 @@ from lerobot.utils.utils import log_say
 from lerobot.utils.visualization_utils import _init_rerun
 from lerobot.record import record_loop
 from lerobot.cameras.configs import CameraConfig, ColorMode, Cv2Rotation
-import uuid
+from datetime import datetime
 
 
 NUM_EPISODES = 50
@@ -61,73 +61,78 @@ action_features = hw_to_dataset_features(robot.action_features, "action")
 obs_features = hw_to_dataset_features(robot.observation_features, "observation")
 dataset_features = {**action_features, **obs_features}
 
-repo_id = f"Rayen023/{robot.name.lower()}_{TASK_DESCRIPTION.replace(' ', '_').lower()}_{uuid.uuid4().hex[:6]}"
+# Generate timestamp-based repo ID with informative naming
+timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+task_name = TASK_DESCRIPTION.replace(' ', '_').lower()
+print(robot.name.lower(), task_name, NUM_EPISODES, FPS, timestamp)
 
-# Create the dataset
-dataset = LeRobotDataset.create(
-    repo_id=repo_id,
-    fps=FPS,
-    features=dataset_features,
-    robot_type=robot.name,
-    use_videos=True,
-    image_writer_threads=4,
-)
+# repo_id = f"Rayen023/{robot.name.lower()}_{task_name}_eps{NUM_EPISODES}_fps{FPS}_{timestamp}"
 
-# Initialize the keyboard listener and rerun visualization
-_, events = init_keyboard_listener()
-_init_rerun(session_name="recording")
+# # Create the dataset
+# dataset = LeRobotDataset.create(
+#     repo_id=repo_id,
+#     fps=FPS,
+#     features=dataset_features,
+#     robot_type=robot.name,
+#     use_videos=True,
+#     image_writer_threads=4,
+# )
 
-# Connect the robot and teleoperator
-robot.connect()
-teleop.connect()
+# # Initialize the keyboard listener and rerun visualization
+# _, events = init_keyboard_listener()
+# _init_rerun(session_name="recording")
 
-episode_idx = 0
-while episode_idx < NUM_EPISODES and not events["stop_recording"]:
-    log_say(f"Recording episode {episode_idx + 1} of {NUM_EPISODES}")
+# # Connect the robot and teleoperator
+# robot.connect()
+# teleop.connect()
 
-    # Episode recording phase starts
-    log_say(f"EPISODE RECORDING START - {EPISODE_TIME_SEC} seconds")
-    record_loop(
-        robot=robot,
-        events=events,
-        fps=FPS,
-        teleop=teleop,
-        dataset=dataset,
-        control_time_s=EPISODE_TIME_SEC,
-        single_task=TASK_DESCRIPTION,
-        display_data=True,
-    )
-    log_say(f"EPISODE RECORDING END - Episode {episode_idx + 1} completed")
+# episode_idx = 0
+# while episode_idx < NUM_EPISODES and not events["stop_recording"]:
+#     log_say(f"Recording episode {episode_idx + 1} of {NUM_EPISODES}")
 
-    # Reset the environment if not stopping or re-recording
-    if not events["stop_recording"] and (episode_idx < NUM_EPISODES - 1 or events["rerecord_episode"]):
-        log_say("Reset the environment")
+#     # Episode recording phase starts
+#     log_say(f"EPISODE RECORDING START - {EPISODE_TIME_SEC} seconds")
+#     record_loop(
+#         robot=robot,
+#         events=events,
+#         fps=FPS,
+#         teleop=teleop,
+#         dataset=dataset,
+#         control_time_s=EPISODE_TIME_SEC,
+#         single_task=TASK_DESCRIPTION,
+#         display_data=True,
+#     )
+#     log_say(f"EPISODE RECORDING END - Episode {episode_idx + 1} completed")
+
+#     # Reset the environment if not stopping or re-recording
+#     if not events["stop_recording"] and (episode_idx < NUM_EPISODES - 1 or events["rerecord_episode"]):
+#         log_say("Reset the environment")
         
-        # Reset phase starts
-        log_say(f"RESET PHASE START - {RESET_TIME_SEC} seconds")
-        record_loop(
-            robot=robot,
-            events=events,
-            fps=FPS,
-            teleop=teleop,
-            control_time_s=RESET_TIME_SEC,
-            single_task=TASK_DESCRIPTION,
-            display_data=True,
-        )
-        log_say(f"RESET PHASE END - Reset completed")
+#         # Reset phase starts
+#         log_say(f"RESET PHASE START - {RESET_TIME_SEC} seconds")
+#         record_loop(
+#             robot=robot,
+#             events=events,
+#             fps=FPS,
+#             teleop=teleop,
+#             control_time_s=RESET_TIME_SEC,
+#             single_task=TASK_DESCRIPTION,
+#             display_data=True,
+#         )
+#         log_say(f"RESET PHASE END - Reset completed")
 
-    if events["rerecord_episode"]:
-        log_say("Re-recording episode")
-        events["rerecord_episode"] = False
-        events["exit_early"] = False
-        dataset.clear_episode_buffer()
-        continue
+#     if events["rerecord_episode"]:
+#         log_say("Re-recording episode")
+#         events["rerecord_episode"] = False
+#         events["exit_early"] = False
+#         dataset.clear_episode_buffer()
+#         continue
 
-    dataset.save_episode()
-    episode_idx += 1
+#     dataset.save_episode()
+#     episode_idx += 1
 
-# Clean up
-log_say("Stop recording")
-robot.disconnect()
-teleop.disconnect()
-#dataset.push_to_hub()
+# # Clean up
+# log_say("Stop recording")
+# robot.disconnect()
+# teleop.disconnect()
+# #dataset.push_to_hub()
