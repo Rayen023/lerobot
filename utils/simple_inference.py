@@ -42,10 +42,13 @@ def run_inference():
     # Generate unique identifier for this run
     unique_id = str(uuid.uuid4())[:8]  # Use first 8 characters of UUID
     
-    TASK_DESCRIPTION = "Put the candy in the black cup"
+    TASK_DESCRIPTION = "Put the red lego block in the black cup"
     ROBOT_PORT = "/dev/ttyACM1"
     ROBOT_ID = "my_follower_arm_1"
-    POLICY_PATH = "outputs/train/so101_follower_put_the_candy_in_the_black_cup_b570d9_smolvla/checkpoints/003333/pretrained_model"
+    POLICY_PATH = "outputs/train/so101_follower_put_the_red_lego_block_in_the_black_cup_bf1e90_smolvla/checkpoints/last/pretrained_model"
+    EPISODE_TIME_SEC = 50  
+    NUM_EPISODES = 1
+    DATASET_REPO_ID = f"Rayen023_evals/eval_{TASK_DESCRIPTION.replace(' ', '_').lower()}_{unique_id}"
     
     # Camera configuration as a JSON string
     camera_config = '{"wrist_view": {"type": "opencv", "index_or_path": "/dev/video0", "width": 640, "height": 480, "fps": 30}, "up_view": {"type": "opencv", "index_or_path": "/dev/video2", "width": 640, "height": 480, "fps": 30}}'
@@ -58,11 +61,11 @@ def run_inference():
         f"--robot.id={ROBOT_ID}",
         f"--robot.cameras={camera_config}",
         f"--dataset.single_task={TASK_DESCRIPTION}",
-        "--dataset.episode_time_s=10",
-        "--dataset.num_episodes=1",
+        f"--dataset.episode_time_s={EPISODE_TIME_SEC}",
+        f"--dataset.num_episodes={NUM_EPISODES}",
         "--dataset.push_to_hub=False",  # Prevent pushing to HuggingFace Hub
         f"--policy.path={POLICY_PATH}",
-        f"--dataset.repo_id=Rayen023_evals/eval_candy_cup_task_test_{unique_id}",  # Add unique ID to repo name
+        f"--dataset.repo_id={DATASET_REPO_ID}",  # Add unique ID to repo name
     ]
     
     print("Running inference command:")

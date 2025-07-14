@@ -6,13 +6,14 @@ python lerobot/scripts/train.py --policy.path=lerobot/smolvla_base --dataset.rep
 # !huggingface-cli login
 import subprocess
 import os
+import uuid
 
 # Configuration
 root = "/home/recherche-a/.cache/huggingface/lerobot/"
-repo_id = "Rayen023/so101_follower_put_the_red_lego_block_in_the_black_cup_bf1e90"
-output_dir = f"outputs/train/{repo_id.split('/')[-1]}_smolvla"
-steps = int(20000)  # Convert to integer for command line
-batch_size = 64
+repo_id = "Rayen023/so101_follower_put_the_red_lego_block_in_the_black_cup_bf1e90" 
+output_dir = f"outputs/train/{repo_id.split('/')[-1]}_smolvla_{str(uuid.uuid4())[:8]}"  # Unique output directory
+steps = int(20000)
+batch_size = 32  # 96 bs uses 24GB of GPU memory, 64 bs uses 16GB of GPU memory
 
 def run_training():
     """Run the SmolVLA training with local dataset"""
