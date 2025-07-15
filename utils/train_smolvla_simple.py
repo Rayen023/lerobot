@@ -15,7 +15,7 @@ repo_id = "Rayen023/so101_follower_put_the_red_lego_block_in_the_black_cup_bf1e9
 # Generate timestamp for unique naming
 timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
 dataset_name = repo_id.split('/')[-1]
-steps = int(40000)
+steps = int(15000)
 batch_size = 64  # 96 bs uses 24GB of GPU memory, 64 bs uses 16GB of GPU memory
 
 # Create informative output directory with timestamp, batch size, and steps

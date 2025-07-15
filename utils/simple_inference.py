@@ -136,7 +136,6 @@ def run_inference():
     DATASET_REPO_ID = f"Rayen023_evals/eval_{task_name}_{timestamp}_{NUM_EPISODES}eps_{ROBOT_ID}_{ROBOT_PORT.split('/')[-1]}_POLICY{POLICY_PATH.split('/')[2]}"
     # Camera configuration as a JSON string
     camera_config = '{"wrist_view": {"type": "opencv", "index_or_path": "/dev/video0", "width": 640, "height": 480, "fps": 30}, "up_view": {"type": "opencv", "index_or_path": "/dev/video2", "width": 640, "height": 480, "fps": 30}}'
-    
     # Build the command
     cmd = [
         "python", "-m", "lerobot.record",
@@ -151,6 +150,8 @@ def run_inference():
         f"--policy.path={POLICY_PATH}",
         f"--dataset.repo_id={DATASET_REPO_ID}",  # Add unique ID to repo name
         "--dataset.reset_time_s=10",  # Reset time between episodes
+        "--display_data=True",  # Enable data display
+        "--robot.calibration_dir=/home/recherche-a/.cache/huggingface/lerobot/calibration/robots/so101_follower",
     ]
     # TODO : No policy or teleoperator provided, skipping action generation.This is likely to happen when resetting the environment without a teleop device.The robot won't be at its rest position at the start of the next episode.
     print("Running inference command:")
