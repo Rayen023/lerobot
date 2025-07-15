@@ -33,7 +33,7 @@ camera_config = {
         index_or_path="/dev/video2",
         fps=30,
         width=640,
-        height=480,
+        height=640,
         color_mode=ColorMode.RGB,
         rotation=Cv2Rotation.NO_ROTATION,
     ),

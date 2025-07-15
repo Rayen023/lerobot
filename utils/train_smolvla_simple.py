@@ -39,6 +39,9 @@ def run_training():
         f"--output_dir={output_dir}",
         f"--job_name={dataset_name}_smolvla_bs{batch_size}_steps{steps}_{timestamp}",
         "--policy.device=cuda",
+        "--policy.chunk_size=25",
+        "--policy.n_action_steps=4",
+        "--dataset.image_transforms.enable=True",
         # "--wandb.enable=true"
     ]
     
