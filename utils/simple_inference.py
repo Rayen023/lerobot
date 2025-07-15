@@ -114,9 +114,9 @@ def show_camera_feed():
     return True
 
 # POLICY_PATH_32BS_20k_steps = "outputs/train/so101_follower_put_the_red_lego_block_in_the_black_cup_bf1e90_smolvla/checkpoints/last/pretrained_model" # failed 1/5
-POLICY_PATH_64BS_20k_steps = "outputs/train/so101_follower_put_the_red_lego_block_in_the_black_cup_bf1e90_smolvla_f009f8d1/checkpoints/last/pretrained_model" # failed 0/5
-POLICY_PATH_32BS_10k_steps = "outputs/train/so101_follower_put_the_red_lego_block_in_the_black_cup_bf1e90_smolvla_bs32_steps10000_20250714_153755/checkpoints/last/pretrained_model" # failed 0/5
-
+#POLICY_PATH_64BS_20k_steps = "outputs/train/so101_follower_put_the_red_lego_block_in_the_black_cup_bf1e90_smolvla_f009f8d1/checkpoints/last/pretrained_model" # failed 0/5
+#POLICY_PATH_32BS_10k_steps = "outputs/train/so101_follower_put_the_red_lego_block_in_the_black_cup_bf1e90_smolvla_bs32_steps10000_20250714_153755/checkpoints/last/pretrained_model" # failed 0/5
+POLICY_PATH_64BS_12k_steps = "outputs/train/so101_follower_put_the_red_lego_block_in_the_black_cup_bf1e90_smolvla_bs64_steps12000_20250714_185931/checkpoints/last/pretrained_model" # failed 0/5
 
 def run_inference():
     # Generate timestamp-based identifier for this run
@@ -126,7 +126,7 @@ def run_inference():
     ROBOT_PORT = "/dev/ttyACM1"
     ROBOT_ID = "my_follower_arm_1"
     
-    POLICY_PATH = POLICY_PATH_32BS_10k_steps
+    POLICY_PATH = POLICY_PATH_64BS_12k_steps
     EPISODE_TIME_SEC = 50  
     NUM_EPISODES = 5
     
