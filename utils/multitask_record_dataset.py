@@ -13,19 +13,21 @@ from lerobot.cameras.configs import CameraConfig, ColorMode, Cv2Rotation
 from datetime import datetime
 
 
-NUM_EPISODES = 50
+EPISODES_PER_TASK = 50
 FPS = 30
 EPISODE_TIME_SEC = 30
 RESET_TIME_SEC = 10
 
-# Define multiple tasks for the dataset
+# Define 4 tasks for cup and lego block combinations (mismatched colors)
 TASKS = [
-    "Put the red lego block in the black cup",
-    "Stack the blue blocks on top of each other", 
-    "Move the green object to the left side",
-    "Pick up the yellow cube and place it in the corner",
-    "Arrange all objects in a line"
+    "Put the red lego block in the white cup",
+    "Put the red lego block in the black cup", 
+    "Put the yellow lego block in the white cup",
+    "Put the yellow lego block in the black cup"
 ]
+
+# Total episodes will be EPISODES_PER_TASK * number of tasks
+TOTAL_EPISODES = EPISODES_PER_TASK * len(TASKS)
 
 # Create the robot and teleoperator configurations
 camera_config = {
@@ -72,13 +74,21 @@ dataset_features = {**action_features, **obs_features}
 # Generate timestamp-based repo ID with informative naming
 timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
 # Use "multitask" in the repo name since we have multiple tasks
-repo_id = f"Rayen023/{robot.name.lower()}_multitask_eps{NUM_EPISODES}_fps{FPS}_{timestamp}"
+repo_id = f"Rayen023/{robot.name.lower()}_multitask_eps{TOTAL_EPISODES}_fps{FPS}_{timestamp}"
 
 print(f"Robot: {robot.name.lower()}")
 print(f"Tasks to record: {TASKS}")
-print(f"Episodes: {NUM_EPISODES}, FPS: {FPS}")
+print(f"Episodes per task: {EPISODES_PER_TASK}")
+print(f"Total episodes: {TOTAL_EPISODES}, FPS: {FPS}")
 print(f"Repo ID: {repo_id}")
 print(f"Timestamp: {timestamp}")
+
+print(f"\n=== Recording Schedule ===")
+for i, task in enumerate(TASKS):
+    start_ep = i * EPISODES_PER_TASK + 1
+    end_ep = (i + 1) * EPISODES_PER_TASK
+    print(f"Episodes {start_ep:3d}-{end_ep:3d}: {task}")
+print("=" * 50)
 
 # Create the dataset
 dataset = LeRobotDataset.create(
@@ -99,24 +109,17 @@ robot.connect()
 teleop.connect()
 
 episode_idx = 0
-while episode_idx < NUM_EPISODES and not events["stop_recording"]:
-    # Select task for this episode (you can modify this logic as needed)
-    # Option 1: Cycle through tasks
-    current_task = TASKS[episode_idx % len(TASKS)]
+while episode_idx < TOTAL_EPISODES and not events["stop_recording"]:
+    # Determine which task we're currently recording based on episode blocks
+    current_task_index = episode_idx // EPISODES_PER_TASK
+    current_task = TASKS[current_task_index]
     
-    # Option 2: Random task selection (uncomment if preferred)
-    # import random
-    # current_task = random.choice(TASKS)
+    # Calculate episode number within the current task block
+    episode_in_task = (episode_idx % EPISODES_PER_TASK) + 1
     
-    # Option 3: User selection (uncomment if preferred)
-    # print(f"\nAvailable tasks:")
-    # for i, task in enumerate(TASKS):
-    #     print(f"{i+1}. {task}")
-    # task_choice = int(input(f"Select task for episode {episode_idx + 1} (1-{len(TASKS)}): ")) - 1
-    # current_task = TASKS[task_choice]
-    
-    log_say(f"Recording episode {episode_idx + 1} of {NUM_EPISODES}")
-    log_say(f"Task: {current_task}")
+    log_say(f"Recording episode {episode_idx + 1} of {TOTAL_EPISODES}")
+    log_say(f"Task {current_task_index + 1}/{len(TASKS)}: {current_task}")
+    log_say(f"Episode {episode_in_task}/{EPISODES_PER_TASK} for this task")
 
     # Episode recording phase starts
     log_say(f"EPISODE RECORDING START - {EPISODE_TIME_SEC} seconds")
@@ -133,7 +136,7 @@ while episode_idx < NUM_EPISODES and not events["stop_recording"]:
     log_say(f"EPISODE RECORDING END - Episode {episode_idx + 1} completed")
 
     # Reset the environment if not stopping or re-recording
-    if not events["stop_recording"] and (episode_idx < NUM_EPISODES - 1 or events["rerecord_episode"]):
+    if not events["stop_recording"] and (episode_idx < TOTAL_EPISODES - 1 or events["rerecord_episode"]):
         log_say("Reset the environment")
         
         # Reset phase starts

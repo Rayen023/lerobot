@@ -117,6 +117,7 @@ def show_camera_feed():
 #POLICY_PATH_64BS_20k_steps = "outputs/train/so101_follower_put_the_red_lego_block_in_the_black_cup_bf1e90_smolvla_f009f8d1/checkpoints/last/pretrained_model" # failed 0/5
 #POLICY_PATH_32BS_10k_steps = "outputs/train/so101_follower_put_the_red_lego_block_in_the_black_cup_bf1e90_smolvla_bs32_steps10000_20250714_153755/checkpoints/last/pretrained_model" # failed 0/5
 POLICY_PATH_64BS_12k_steps = "outputs/train/so101_follower_put_the_red_lego_block_in_the_black_cup_bf1e90_smolvla_bs64_steps12000_20250714_185931/checkpoints/last/pretrained_model" # failed 0/5
+#POLICY_PATH_64BS_40k_steps = "outputs/train/so101_follower_put_the_red_lego_block_in_the_black_cup_bf1e90_smolvla_bs64_steps40000_20250714_232250/checkpoints/last/pretrained_model"
 
 def run_inference():
     # Generate timestamp-based identifier for this run
@@ -151,7 +152,7 @@ def run_inference():
         f"--dataset.repo_id={DATASET_REPO_ID}",  # Add unique ID to repo name
         "--dataset.reset_time_s=10",  # Reset time between episodes
     ]
-    
+    # TODO : No policy or teleoperator provided, skipping action generation.This is likely to happen when resetting the environment without a teleop device.The robot won't be at its rest position at the start of the next episode.
     print("Running inference command:")
     print(" ".join(cmd))
     print(f"Timestamp: {timestamp}")
