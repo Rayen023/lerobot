@@ -1,12 +1,182 @@
+Renaming screenlog.0 to screenlog.05
 Starting SmolVLA training with the following configuration:
-Dataset: Rayen023/so101_follower_put_the_red_lego_block_in_the_black_cup_bf1e90
-Dataset root: /home/recherche-a/.cache/huggingface/lerobot/Rayen023/so101_follower_put_the_red_lego_block_in_the_black_cup_bf1e90
-Output directory: outputs/train/so101_follower_put_the_red_lego_block_in_the_black_cup_bf1e90_smolvla_bs64_steps15000_20250715_114606
-Steps: 15000
+Dataset: Rayen023/so101_follower_put_the_red_lego_block_in_the_black_cup_eps100_fps30_20250716_113612
+Dataset root: /home/recherche-a/.cache/huggingface/lerobot/Rayen023/so101_follower_put_the_red_lego_block_in_the_black_cup_eps100_fps30_20250716_113612
+Output directory: outputs/train/so101_follower_put_the_red_lego_block_in_the_black_cup_eps100_fps30_20250716_113612_smolvla_bs64_steps20000_20250716_122951
+Steps: 20000
 Batch size: 64
-Command: python src/lerobot/scripts/train.py --policy.path=lerobot/smolvla_base --policy.push_to_hub=false --dataset.repo_id=Rayen023/so101_follower_put_the_red_lego_block_in_the_black_cup_bf1e90 --dataset.root=/home/recherche-a/.cache/huggingface/lerobot/Rayen023/so101_follower_put_the_red_lego_block_in_the_black_cup_bf1e90 --batch_size=64 --steps=15000 --output_dir=outputs/train/so101_follower_put_the_red_lego_block_in_the_black_cup_bf1e90_smolvla_bs64_steps15000_20250715_114606 --job_name=so101_follower_put_the_red_lego_block_in_the_black_cup_bf1e90_smolvla_bs64_steps15000_20250715_114606 --policy.device=cuda --policy.chunk_size=32 --policy.n_action_steps=4
+Command: python src/lerobot/scripts/train.py --policy.path=outputs/train/so101_follower_put_the_red_lego_block_in_the_black_cup_bf1e90_smolvla_bs64_steps12000_20250714_185931/checkpoints/last/pretrained_model --policy.push_to_hub=false --dataset.repo_id=Rayen023/so101_follower_put_the_red_lego_block_in_the_black_cup_eps100_fps30_20250716_113612 --dataset.root=/home/recherche-a/.cache/huggingface/lerobot/Rayen023/so101_follower_put_the_red_lego_block_in_the_black_cup_eps100_fps30_20250716_113612 --batch_size=64 --steps=20000 --output_dir=outputs/train/so101_follower_put_the_red_lego_block_in_the_black_cup_eps100_fps30_20250716_113612_smolvla_bs64_steps20000_20250716_122951 --job_name=so101_follower_put_the_red_lego_block_in_the_black_cup_eps100_fps30_20250716_113612_smolvla_bs64_steps20000_20250716_122951 --policy.device=cuda
 --------------------------------------------------------------------------------
-usage: train.py [-h] [--config_path str] [--n_obs_steps str] [--normalization_mapping str] [--input_features str] [--output_features str] [--device str] [--use_amp str] [--push_to_hub str] [--repo_id str] [--private str] [--tags str] [--license str]
-train.py: error: unrecognized arguments: --chunk_size=32 --n_action_steps=4
-Training failed with error code 2
-Check the output above for error details.
+INFO 2025-07-16 12:29:53 ts/train.py:111 {'batch_size': 64,
+ 'dataset': {'episodes': None,
+             'image_transforms': {'enable': False,
+                                  'max_num_transforms': 3,
+                                  'random_order': False,
+                                  'tfs': {'brightness': {'kwargs': {'brightness': [0.8,
+                                                                                   1.2]},
+                                                         'type': 'ColorJitter',
+                                                         'weight': 1.0},
+                                          'contrast': {'kwargs': {'contrast': [0.8,
+                                                                               1.2]},
+                                                       'type': 'ColorJitter',
+                                                       'weight': 1.0},
+                                          'hue': {'kwargs': {'hue': [-0.05,
+                                                                     0.05]},
+                                                  'type': 'ColorJitter',
+                                                  'weight': 1.0},
+                                          'saturation': {'kwargs': {'saturation': [0.5,
+                                                                                   1.5]},
+                                                         'type': 'ColorJitter',
+                                                         'weight': 1.0},
+                                          'sharpness': {'kwargs': {'sharpness': [0.5,
+                                                                                 1.5]},
+                                                        'type': 'SharpnessJitter',
+                                                        'weight': 1.0}}},
+             'repo_id': 'Rayen023/so101_follower_put_the_red_lego_block_in_the_black_cup_eps100_fps30_20250716_113612',
+             'revision': None,
+             'root': '/home/recherche-a/.cache/huggingface/lerobot/Rayen023/so101_follower_put_the_red_lego_block_in_the_black_cup_eps100_fps30_20250716_113612',
+             'use_imagenet_stats': True,
+             'video_backend': 'torchcodec'},
+ 'env': None,
+ 'eval': {'batch_size': 50, 'n_episodes': 50, 'use_async_envs': False},
+ 'eval_freq': 20000,
+ 'job_name': 'so101_follower_put_the_red_lego_block_in_the_black_cup_eps100_fps30_20250716_113612_smolvla_bs64_steps20000_20250716_122951',
+ 'log_freq': 200,
+ 'num_workers': 4,
+ 'optimizer': {'betas': [0.9, 0.95],
+               'eps': 1e-08,
+               'grad_clip_norm': 10.0,
+               'lr': 0.0001,
+               'type': 'adamw',
+               'weight_decay': 1e-10},
+ 'output_dir': 'outputs/train/so101_follower_put_the_red_lego_block_in_the_black_cup_eps100_fps30_20250716_113612_smolvla_bs64_steps20000_20250716_122951',
+ 'policy': {'adapt_to_pi_aloha': False,
+            'add_image_special_tokens': False,
+            'attention_mode': 'cross_attn',
+            'chunk_size': 50,
+            'device': 'cuda',
+            'empty_cameras': 0,
+            'expert_width_multiplier': 0.75,
+            'freeze_vision_encoder': True,
+            'input_features': {'observation.images.up_view': {'shape': [3,
+                                                                        480,
+                                                                        640],
+                                                              'type': <FeatureType.VISUAL: 'VISUAL'>},
+                               'observation.images.wrist_view': {'shape': [3,
+                                                                           480,
+                                                                           640],
+                                                                 'type': <FeatureType.VISUAL: 'VISUAL'>},
+                               'observation.state': {'shape': [6],
+                                                     'type': <FeatureType.STATE: 'STATE'>}},
+            'license': None,
+            'load_vlm_weights': True,
+            'max_action_dim': 32,
+            'max_period': 4.0,
+            'max_state_dim': 32,
+            'min_period': 0.004,
+            'n_action_steps': 50,
+            'n_obs_steps': 1,
+            'normalization_mapping': {'ACTION': <NormalizationMode.MEAN_STD: 'MEAN_STD'>,
+                                      'STATE': <NormalizationMode.MEAN_STD: 'MEAN_STD'>,
+                                      'VISUAL': <NormalizationMode.IDENTITY: 'IDENTITY'>},
+            'num_expert_layers': 0,
+            'num_steps': 10,
+            'num_vlm_layers': 16,
+            'optimizer_betas': [0.9, 0.95],
+            'optimizer_eps': 1e-08,
+            'optimizer_grad_clip_norm': 10.0,
+            'optimizer_lr': 0.0001,
+            'optimizer_weight_decay': 1e-10,
+            'output_features': {'action': {'shape': [6],
+                                           'type': <FeatureType.ACTION: 'ACTION'>}},
+            'pad_language_to': 'max_length',
+            'prefix_length': 0,
+            'private': None,
+            'push_to_hub': False,
+            'repo_id': None,
+            'resize_imgs_with_padding': [512, 512],
+            'scheduler_decay_lr': 2.5e-06,
+            'scheduler_decay_steps': 30000,
+            'scheduler_warmup_steps': 1000,
+            'self_attn_every_n_layers': 2,
+            'tags': None,
+            'tokenizer_max_length': 48,
+            'train_expert_only': True,
+            'train_state_proj': True,
+            'type': 'smolvla',
+            'use_amp': False,
+            'use_cache': True,
+            'use_delta_joint_actions_aloha': False,
+            'vlm_model_name': 'HuggingFaceTB/SmolVLM2-500M-Video-Instruct'},
+ 'resume': False,
+ 'save_checkpoint': True,
+ 'save_freq': 20000,
+ 'scheduler': {'decay_lr': 2.5e-06,
+               'num_decay_steps': 30000,
+               'num_warmup_steps': 1000,
+               'peak_lr': 0.0001,
+               'type': 'cosine_decay_with_warmup'},
+ 'seed': 1000,
+ 'steps': 20000,
+ 'use_policy_training_preset': True,
+ 'wandb': {'disable_artifact': False,
+           'enable': False,
+           'entity': None,
+           'mode': None,
+           'notes': None,
+           'project': 'lerobot',
+           'run_id': None}}
+INFO 2025-07-16 12:29:53 ts/train.py:117 [1m[33mLogs will be saved locally.[0m
+INFO 2025-07-16 12:29:53 ts/train.py:127 Creating dataset
+Resolving data files:   0%|                                                                                                                                                                          | 0/100 [00:00<?, ?it/s]Resolving data files: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 100/100 [00:00<00:00, 832203.17it/s]
+Downloading data:   0%|                                                                                                                                                                           | 0/100 [00:00<?, ?files/s]Downloading data: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 100/100 [00:00<00:00, 179550.68files/s]
+Generating train split: 0 examples [00:00, ? examples/s]Generating train split: 24963 examples [00:00, 429699.96 examples/s]
+INFO 2025-07-16 12:29:54 ts/train.py:138 Creating policy
+Loading  HuggingFaceTB/SmolVLM2-500M-Video-Instruct weights ...
+INFO 2025-07-16 12:29:56 modeling.py:991 We will use 90% of the memory on device 0 for storing the model, and 10% for the buffer to avoid OOM. You can set `max_memory` in to a higher value to use more memory (at your own risk).
+Reducing the number of VLM layers to 16 ...
+Loading weights from local directory
+INFO 2025-07-16 12:30:01 ts/train.py:144 Creating optimizer and scheduler
+INFO 2025-07-16 12:30:01 ts/train.py:156 [1m[33mOutput dir:[0m outputs/train/so101_follower_put_the_red_lego_block_in_the_black_cup_eps100_fps30_20250716_113612_smolvla_bs64_steps20000_20250716_122951
+INFO 2025-07-16 12:30:01 ts/train.py:159 cfg.steps=20000 (20K)
+INFO 2025-07-16 12:30:01 ts/train.py:160 dataset.num_frames=24963 (25K)
+INFO 2025-07-16 12:30:01 ts/train.py:161 dataset.num_episodes=100
+INFO 2025-07-16 12:30:01 ts/train.py:162 num_learnable_params=99880992 (100M)
+INFO 2025-07-16 12:30:01 ts/train.py:163 num_total_params=450046212 (450M)
+INFO 2025-07-16 12:30:01 ts/train.py:202 Start offline training on a fixed dataset
+INFO 2025-07-16 12:32:11 ts/train.py:232 step:200 smpl:13K ep:51 epch:0.51 loss:0.306 grdn:1.438 lr:1.0e-05 updt_s:0.639 data_s:0.012
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+INFO 2025-07-16 12:34:17 ts/train.py:232 step:400 smpl:26K ep:103 epch:1.03 loss:0.076 grdn:0.323 lr:3.0e-05 updt_s:0.616 data_s:0.010
+INFO 2025-07-16 12:36:21 ts/train.py:232 step:600 smpl:38K ep:154 epch:1.54 loss:0.059 grdn:0.326 lr:5.0e-05 updt_s:0.617 data_s:0.000
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+INFO 2025-07-16 12:38:26 ts/train.py:232 step:800 smpl:51K ep:205 epch:2.05 loss:0.052 grdn:0.322 lr:7.0e-05 updt_s:0.616 data_s:0.010

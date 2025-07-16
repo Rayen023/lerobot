@@ -12,7 +12,9 @@ from datetime import datetime
 #POLICY_PATH_32BS_10k_steps = "outputs/train/so101_follower_put_the_red_lego_block_in_the_black_cup_bf1e90_smolvla_bs32_steps10000_20250714_153755/checkpoints/last/pretrained_model" # failed 0/5
 POLICY_PATH_64BS_12k_steps = "outputs/train/so101_follower_put_the_red_lego_block_in_the_black_cup_bf1e90_smolvla_bs64_steps12000_20250714_185931/checkpoints/last/pretrained_model" # failed 0/5
 #POLICY_PATH_64BS_40k_steps = "outputs/train/so101_follower_put_the_red_lego_block_in_the_black_cup_bf1e90_smolvla_bs64_steps40000_20250714_232250/checkpoints/last/pretrained_model"
-
+POLICY_PATH_4_ACTIONS_25CHUNKS_AUGMENTED = "outputs/train/so101_follower_put_the_red_lego_block_in_the_black_cup_bf1e90_smolvla_bs64_steps15000_20250715_121250/checkpoints/last/pretrained_model" # failed 5/5
+POLICY_100EPS = "outputs/train/so101_follower_put_the_red_lego_block_in_the_black_cup_eps100_fps30_20250715_123150_smolvla_bs64_steps20000_20250715_150957/checkpoints/last/pretrained_model" # failed 0/5
+POLICY_100EPS_PRETRAINED = "outputs/train/so101_follower_put_the_red_lego_block_in_the_black_cup_eps100_fps30_20250715_123150_smolvla_bs64_steps20000_20250715_190951/checkpoints/last/pretrained_model"
 def run_inference():
     # Generate timestamp-based identifier for this run
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -21,15 +23,15 @@ def run_inference():
     ROBOT_PORT = "/dev/ttyACM1"
     ROBOT_ID = "my_follower_arm_1"
     
-    POLICY_PATH = POLICY_PATH_64BS_12k_steps
-    EPISODE_TIME_SEC = 50  
+    POLICY_PATH = POLICY_100EPS_PRETRAINED
+    EPISODE_TIME_SEC = 1000  
     NUM_EPISODES = 5
     
     # Create informative dataset repo ID with timestamp
     task_name = TASK_DESCRIPTION.replace(' ', '_').lower()
     DATASET_REPO_ID = f"Rayen023_evals/eval_{task_name}_{timestamp}_{NUM_EPISODES}eps_{ROBOT_ID}_{ROBOT_PORT.split('/')[-1]}_POLICY{POLICY_PATH.split('/')[2]}"
     # Camera configuration as a JSON string
-    camera_config = '{"wrist_view": {"type": "opencv", "index_or_path": "/dev/video0", "width": 640, "height": 480, "fps": 30}, "up_view": {"type": "opencv", "index_or_path": "/dev/video2", "width": 640, "height": 640, "fps": 30}}'
+    camera_config = '{"wrist_view": {"type": "opencv", "index_or_path": "/dev/video0", "width": 640, "height": 480, "fps": 30}, "up_view": {"type": "opencv", "index_or_path": "/dev/video2", "width": 800, "height": 600, "fps": 30}}'
     # Build the command
     cmd = [
         "python", "-m", "lerobot.record",

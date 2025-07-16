@@ -69,6 +69,8 @@ while True:
         break
 
     action = teleop_device.get_action()
+    print(f"Action: {action}")
+    
     robot.send_action(action)
 
 # Clean up

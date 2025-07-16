@@ -13,27 +13,27 @@ from lerobot.cameras.configs import CameraConfig, ColorMode, Cv2Rotation
 from datetime import datetime
 
 
-NUM_EPISODES = 50
+NUM_EPISODES = 100
 FPS = 30
-EPISODE_TIME_SEC = 30
-RESET_TIME_SEC = 10
+EPISODE_TIME_SEC = 60
+RESET_TIME_SEC = 30
 TASK_DESCRIPTION = "Put the red lego block in the black cup"
 
 # Create the robot and teleoperator configurations
 camera_config = {
     "wrist_view": OpenCVCameraConfig(
         index_or_path="/dev/video0",
-        fps=30,
+        fps=FPS,
         width=640,
         height=480,
         color_mode=ColorMode.RGB,
-        rotation=Cv2Rotation.NO_ROTATION,
+        rotation=Cv2Rotation.ROTATE_180,
     ),
     "up_view": OpenCVCameraConfig(
         index_or_path="/dev/video2",
-        fps=30,
-        width=640,
-        height=640,
+        fps=FPS,
+        width=800,
+        height=600,
         color_mode=ColorMode.RGB,
         rotation=Cv2Rotation.NO_ROTATION,
     ),
