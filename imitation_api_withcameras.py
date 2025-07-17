@@ -6,21 +6,22 @@ from lerobot.cameras.opencv.configuration_opencv import OpenCVCameraConfig
 from lerobot.robots.so101_follower import SO101Follower, SO101FollowerConfig
 from lerobot.teleoperators.so101_leader import SO101Leader, SO101LeaderConfig
 
+FPS = 30
 camera_config = {
     "wrist_view": OpenCVCameraConfig(
         index_or_path="/dev/video0",
-        fps=30,
+        fps=FPS,
         width=640,
         height=480,
-        color_mode=ColorMode.BGR,
-        rotation=Cv2Rotation.NO_ROTATION,
+        color_mode=ColorMode.RGB,
+        rotation=Cv2Rotation.ROTATE_180,
     ),
     "up_view": OpenCVCameraConfig(
         index_or_path="/dev/video2",
-        fps=30,
-        width=640,
-        height=480,
-        color_mode=ColorMode.BGR,
+        fps=FPS,
+        width=800,
+        height=600,
+        color_mode=ColorMode.RGB,
         rotation=Cv2Rotation.NO_ROTATION,
     ),
 }

@@ -14,36 +14,39 @@ import re
 root = "/home/recherche-a/.cache/huggingface/lerobot/"
 #repo_id = "Rayen023/so101_follower_put_the_red_lego_block_in_the_black_cup_bf1e90" # 50 episodes on small block task, 5 fixed locations
 #repo_id = "Rayen023/so101_follower_put_the_red_lego_block_in_the_black_cup_eps100_fps30_20250715_123150" # 100 episodes on small block task, different locations
-repo_id = "Rayen023/so101_follower_put_the_red_lego_block_in_the_black_cup_eps100_fps30_20250716_113612" # 100 episodes on large block task, different locations
+#repo_id = "Rayen023/so101_follower_put_the_red_lego_block_in_the_black_cup_eps100_fps30_20250716_113612" # 100 episodes on large block task, different locations
+repo_id = "Rayen023/combined_so101_follower_put_the_red_lego_block_in_the_black_cup_eps100_fps30"
 # Generate timestamp for unique naming
 timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
 dataset_name = repo_id.split('/')[-1]
-steps = int(20000)
-batch_size = 64  # 96 bs uses 24GB of GPU memory, 64 bs uses 16GB of GPU memory
+steps = int(8000)
+batch_size = 82  # 96 bs uses 24GB of GPU memory, 64 bs uses 16GB of GPU memory
 
 # Create informative output directory with timestamp, batch size, and steps
 output_dir = f"outputs/train/{dataset_name}_smolvla_bs{batch_size}_steps{steps}_{timestamp}"
-POLICY_PATH_64BS_12k_steps = "outputs/train/so101_follower_put_the_red_lego_block_in_the_black_cup_bf1e90_smolvla_bs64_steps12000_20250714_185931/checkpoints/last/pretrained_model" 
+#POLICY_PATH_64BS_12k_steps = "outputs/train/so101_follower_put_the_red_lego_block_in_the_black_cup_bf1e90_smolvla_bs64_steps12000_20250714_185931/checkpoints/last/pretrained_model" 
+#POLICY_PATH = POLICY_PATH_64BS_12k_steps  # Use the path to the pre-trained model
 
+POLICY_PATH = "lerobot/smolvla_base"
 
 def manage_screenlog_files():
     """
-    Check for existing screenlog files and rename screenlog.0 to the next available number
+    Check for existing screenlog files and rename screenlog.0 to the next available number in logs folder
     """
-    # Get all screenlog files in current directory
-    screenlog_files = glob.glob("screenlog.*")
+    # Ensure logs directory exists
+    os.makedirs("logs", exist_ok=True)
     
-    if not screenlog_files:
-        return
+    # Get all screenlog files in logs directory
+    screenlog_files = glob.glob("logs/screenlog.*")
     
     # Extract numbers from screenlog files
     numbers = []
     for file in screenlog_files:
-        match = re.match(r'screenlog\.(\d+)', file)
+        match = re.match(r'logs/screenlog\.(\d+)', file)
         if match:
             numbers.append(int(match.group(1)))
     
-    # Check if screenlog.0 exists
+    # Check if screenlog.0 exists in current directory
     if os.path.exists("screenlog.0"):
         # Find the next available number
         if numbers:
@@ -52,15 +55,15 @@ def manage_screenlog_files():
             next_num = 1
         
         # Format with zero padding to match existing pattern
-        new_filename = f"screenlog.{next_num:02d}"
+        new_filename = f"logs/screenlog.{next_num:02d}"
         
-        print(f"Renaming screenlog.0 to {new_filename}")
+        print(f"Moving screenlog.0 to {new_filename}")
         os.rename("screenlog.0", new_filename)
 
 def run_training():
     """Run the SmolVLA training with local dataset"""
     
-    # Manage screenlog files before starting training
+    # Manage screenlog files before stlarting training
     manage_screenlog_files()
     
     # Construct the dataset root path
@@ -69,7 +72,7 @@ def run_training():
     # Build the command
     cmd = [
         "python", "src/lerobot/scripts/train.py",
-        f"--policy.path={POLICY_PATH_64BS_12k_steps}", #lerobot/smolvla_base",
+        f"--policy.path={POLICY_PATH}", #lerobot/smolvla_base",
         "--policy.push_to_hub=false",  # Disable pushing to hub
         f"--dataset.repo_id={repo_id}",
         f"--dataset.root={dataset_root}",
@@ -78,8 +81,8 @@ def run_training():
         f"--output_dir={output_dir}",
         f"--job_name={dataset_name}_smolvla_bs{batch_size}_steps{steps}_{timestamp}",
         "--policy.device=cuda",
-        #"--policy.chunk_size=25",
-        #"--policy.n_action_steps=4",
+        "--policy.chunk_size=15",
+        "--policy.n_action_steps=15",
         #"--dataset.image_transforms.enable=True",
         # "--wandb.enable=true"
     ]
