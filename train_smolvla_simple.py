@@ -21,9 +21,11 @@ timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
 dataset_name = repo_id.split('/')[-1]
 steps = int(8000)
 batch_size = 82  # 96 bs uses 24GB of GPU memory, 64 bs uses 16GB of GPU memory
+n_action_steps = 15  # Number of action steps to take in each chunk
+chunk_size = 15  # Number of chunks to process in each training step
 
 # Create informative output directory with timestamp, batch size, and steps
-output_dir = f"outputs/train/{dataset_name}_smolvla_bs{batch_size}_steps{steps}_{timestamp}"
+output_dir = f"outputs/train/{dataset_name}_smolvla_bs{batch_size}_steps{steps}_action{n_action_steps}_chunk{chunk_size}_{timestamp}"
 #POLICY_PATH_64BS_12k_steps = "outputs/train/so101_follower_put_the_red_lego_block_in_the_black_cup_bf1e90_smolvla_bs64_steps12000_20250714_185931/checkpoints/last/pretrained_model" 
 #POLICY_PATH = POLICY_PATH_64BS_12k_steps  # Use the path to the pre-trained model
 
@@ -80,9 +82,9 @@ def run_training():
         f"--steps={steps}",
         f"--output_dir={output_dir}",
         f"--job_name={dataset_name}_smolvla_bs{batch_size}_steps{steps}_{timestamp}",
-        "--policy.device=cuda",
-        "--policy.chunk_size=15",
-        "--policy.n_action_steps=15",
+        f"--policy.device=cuda",
+        f"--policy.chunk_size={chunk_size}",
+        f"--policy.n_action_steps={n_action_steps}",
         #"--dataset.image_transforms.enable=True",
         # "--wandb.enable=true"
     ]

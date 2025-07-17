@@ -147,3 +147,22 @@ INFO 2025-07-17 12:52:24 ts/train.py:161 dataset.num_episodes=200
 INFO 2025-07-17 12:52:24 ts/train.py:162 num_learnable_params=99880992 (100M)
 INFO 2025-07-17 12:52:24 ts/train.py:163 num_total_params=450046212 (450M)
 INFO 2025-07-17 12:52:24 ts/train.py:202 Start offline training on a fixed dataset
+INFO 2025-07-17 12:55:01 ts/train.py:232 step:200 smpl:16K ep:65 epch:0.32 loss:0.036 grdn:0.406 lr:1.0e-05 updt_s:0.772 data_s:0.013
+INFO 2025-07-17 12:57:28 ts/train.py:232 step:400 smpl:33K ep:129 epch:0.65 loss:0.022 grdn:0.328 lr:3.0e-05 updt_s:0.736 data_s:0.000
+INFO 2025-07-17 12:59:58 ts/train.py:232 step:600 smpl:49K ep:194 epch:0.97 loss:0.020 grdn:0.357 lr:5.0e-05 updt_s:0.745 data_s:0.000
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
