@@ -14,7 +14,7 @@
 
 # Dev scripts
 .dev
-
+screenlog.*
 # Logging
 logs
 tmp
