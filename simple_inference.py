@@ -26,10 +26,10 @@ def run_inference():
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     
     TASK_DESCRIPTION = "Put the red lego block in the black cup"
-    ROBOT_PORT = "/dev/ttyACM1"
-    ROBOT_ID = "my_follower_arm_1"
+    ROBOT_PORT = "/dev/ttyACM0"
+    ROBOT_ID = "my_calibrated_follower_arm8"
     
-    POLICY_PATH = POLICY_100EPS_LARGER_BLOCK
+    POLICY_PATH = COMBINED_POLICY
     EPISODE_TIME_SEC = 1000  
     NUM_EPISODES = 5
     
@@ -54,9 +54,9 @@ def run_inference():
         "--dataset.reset_time_s=10",  # Reset time between episodes
         "--display_data=True",  # Enable data display
         "--robot.calibration_dir=/home/recherche-a/.cache/huggingface/lerobot/calibration/robots/so101_follower",
-        "--teleop.port=/dev/ttyACM0",  # Teleoperator port
-        "--teleop.id=my_leader_arm_1",  # Teleoperator ID
-        "--teleop.type=so101_leader",  # Teleoperator type
+        #"--teleop.port=/dev/ttyACM0",  # Teleoperator port
+        #"--teleop.id=my_leader_arm_1",  # Teleoperator ID
+        #"--teleop.type=so101_leader",  # Teleoperator type
     ]
     # TODO : No policy or teleoperator provided, skipping action generation.This is likely to happen when resetting the environment without a teleop device.The robot won't be at its rest position at the start of the next episode.
     print("Running inference command:")

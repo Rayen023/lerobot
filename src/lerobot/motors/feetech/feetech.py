@@ -231,7 +231,10 @@ class FeetechMotorsBus(MotorsBus):
 
     @property
     def is_calibrated(self) -> bool:
+        print(f"Checking if {self} is calibrated...")
         motors_calibration = self.read_calibration()
+        print(f"Current motors calibration: {pformat(motors_calibration, indent=4)}")
+        print(f"Expected motors calibration: {pformat(self.calibration, indent=4)}")
         if set(motors_calibration) != set(self.calibration):
             return False
 
