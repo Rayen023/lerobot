@@ -80,14 +80,9 @@ dependencies = [
     "torchvision>=0.21.0,<0.23.0", # TODO: Bumb dependency
 
     "draccus==0.10.0", # TODO: Remove ==
-<<<<<<< HEAD
-    "gymnasium>=0.29.1,<1.0.0", # TODO: Bumb dependency
-    "rerun-sdk>=0.21.0,<0.23.0", # TODO: Bumb dependency
-=======
     "gymnasium>=1.1.1,<2.0.0",
     "rerun-sdk>=0.24.0,<0.27.0",
 
->>>>>>> upstream/main
     # Support dependencies
     "deepdiff>=7.0.1,<9.0.0",
     "imageio[ffmpeg]>=2.34.0,<3.0.0",
