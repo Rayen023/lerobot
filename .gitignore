@@ -15,8 +15,9 @@
 # Dev scripts
 .dev
 screenlog.*
+
 # Logging
-logs
+logs*
 tmp
 wandb
 

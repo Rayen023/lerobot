@@ -473,6 +473,7 @@ def convert_dataset(
     if root.exists():
         validate_local_dataset_version(root)
         use_local_dataset = True
+        push_to_hub = False  # Can't push local datasets to hub using local path as repo_id
         print(f"Using local dataset at {root}")
 
     old_root = root.parent / f"{root.name}_old"

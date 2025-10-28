@@ -20,7 +20,7 @@ POLICY_100EPS_LARGER_BLOCK = "outputs/train/so101_follower_put_the_red_lego_bloc
 POLICY_100EPS_2k_32_LARGER_BLOCK = "outputs/train/so101_follower_put_the_red_lego_block_in_the_black_cup_eps100_fps30_20250716_113612_smolvla_bs64_steps2000_20250716_192154/checkpoints/last/pretrained_model"
 COMBINED_POLICY = "outputs/train/combined_so101_follower_put_the_red_lego_block_in_the_black_cup_eps100_fps30_smolvla_bs64_steps12000_20250716_213706/checkpoints/last/pretrained_model"
 COMBINED_POLICY_82BS_8k_Steps = "outputs/train/combined_so101_follower_put_the_red_lego_block_in_the_black_cup_eps100_fps30_smolvla_bs82_steps8000_20250717_105752/checkpoints/008000/pretrained_model"
-
+# python src/lerobot/processor/migrate_policy_normalization.py --pretrained-path outputs/train/combined_so101_follower_put_the_red_lego_block_in_the_black_cup_eps100_fps30_smolvla_bs64_steps12000_20250716_213706/checkpoints/last/pretrained_model
 def run_inference():
     # Generate timestamp-based identifier for this run
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -29,7 +29,8 @@ def run_inference():
     ROBOT_PORT = "/dev/ttyACM0"
     ROBOT_ID = "my_calibrated_follower_arm8"
     
-    POLICY_PATH = COMBINED_POLICY
+    #POLICY_PATH = COMBINED_POLICY
+    POLICY_PATH = "outputs/train/combined_so101_follower_put_the_red_lego_block_in_the_black_cup_eps100_fps30_smolvla_bs64_steps12000_20250716_213706/checkpoints/last/pretrained_model_migrated"
     EPISODE_TIME_SEC = 1000  
     NUM_EPISODES = 5
     
@@ -37,10 +38,11 @@ def run_inference():
     task_name = TASK_DESCRIPTION.replace(' ', '_').lower()
     DATASET_REPO_ID = f"Rayen023_evals/eval_{task_name}_{timestamp}_{NUM_EPISODES}eps_{ROBOT_ID}_{ROBOT_PORT.split('/')[-1]}_POLICY{POLICY_PATH.split('/')[2]}"
     # Camera configuration as a JSON string
-    camera_config = '{"wrist_view": {"type": "opencv", "index_or_path": "/dev/video0", "width": 640, "height": 480, "fps": 30, "rotation": ROTATE_180}, "up_view": {"type": "opencv", "index_or_path": "/dev/video2", "width": 800, "height": 600, "fps": 30, "rotation": NO_ROTATION}}'
+    camera_config = '{"wrist_view": {"type": "opencv", "index_or_path": "/dev/video1", "width": 640, "height": 480, "fps": 30, "rotation": ROTATE_180}, "up_view": {"type": "opencv", "index_or_path": "/dev/video2", "width": 800, "height": 600, "fps": 20, "rotation": NO_ROTATION}}'
     # Build the command
+    
     cmd = [
-        "python", "-m", "lerobot.record",
+        "lerobot-record",
         "--robot.type=so101_follower",
         f"--robot.port={ROBOT_PORT}",
         f"--robot.id={ROBOT_ID}",
