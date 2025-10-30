@@ -1,0 +1,12 @@
+uv run lerobot-record \
+  --robot.type=so101_follower \
+  --robot.port=/dev/ttyACM0 \
+  --robot.id=my_calibrated_follower_arm8 \
+  --robot.cameras="{wrist_view: {type: opencv, index_or_path: /dev/video1, width: 640, height: 480, fps: 30, color_mode: RGB, rotation: ROTATE_180}, up_view: {type: opencv, index_or_path: /dev/video2, width: 800, height: 600, fps: 20, color_mode: RGB, rotation: NO_ROTATION}}" \
+  --dataset.single_task="Put the red lego block in the black cup" \
+  --dataset.episode_time_s=1000 \
+  --dataset.num_episodes=1 \
+  --dataset.push_to_hub=False \
+  --policy.path=/mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/Data2/VLA_weights_evals/smolvla_models/combined_cleaned_smolvla_bs64_steps50000_20251028_172519/checkpoint_34000 \
+  --dataset.repo_id=Rayen023/eval_smolvla_inference_test2 \
+  --display_data=True

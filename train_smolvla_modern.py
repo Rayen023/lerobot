@@ -43,15 +43,15 @@ def manage_screenlog_files():
 
 
 def main():
-    dataset_path = "/home/recherche-a/OneDrive_recherche_a/Linux_onedrive/Projects_linux/Thesis/cleaning_db/combined_cleaned"
+    dataset_path = "/home/recherche-a/OneDrive_recherche_a/Linux_onedrive/Projects_linux/Thesis/cleaning_db/datasets/combined_cleaned"
     
     batch_size = 64
-    training_steps = 20000
-    learning_rate = 1e-4
+    training_steps = 50000
+    learning_rate = 2e-4
     
     log_freq = 100
-    save_freq = 1000
-    use_wandb = False
+    save_freq = 5000
+    use_wandb = True
     wandb_project = "lerobot-smolvla"
     wandb_run_name = None
     
@@ -64,14 +64,19 @@ def main():
     
     manage_screenlog_files()
     
-    logging.basicConfig(
-        level=logging.INFO,
-        format='%(asctime)s - %(levelname)s - %(message)s',
-        handlers=[
-            logging.FileHandler(output_dir / "training.log"),
-            logging.StreamHandler()
-        ]
-    )
+    # Set up logging with immediate flushing
+    file_handler = logging.FileHandler(output_dir / "training.log")
+    file_handler.setLevel(logging.INFO)
+    file_handler.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
+    
+    console_handler = logging.StreamHandler()
+    console_handler.setLevel(logging.INFO)
+    console_handler.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
+    
+    root_logger = logging.getLogger()
+    root_logger.setLevel(logging.INFO)
+    root_logger.addHandler(file_handler)
+    root_logger.addHandler(console_handler)
     
     logging.info("=" * 80)
     logging.info("SmolVLA Training Configuration")
@@ -120,12 +125,6 @@ def main():
     policy_config = SmolVLAConfig(
         input_features=input_features,
         output_features=output_features,
-        freeze_vision_encoder=True,
-        train_expert_only=True,
-        train_state_proj=True,
-        optimizer_lr=learning_rate,
-        optimizer_weight_decay=1e-10,
-        optimizer_grad_clip_norm=10.0,
     )
     
     logging.info("Loading pre-trained SmolVLA model...")
@@ -204,11 +203,10 @@ def main():
     
     dataloader = torch.utils.data.DataLoader(
         dataset,
-        num_workers=4,
+        num_workers=16,
         batch_size=batch_size,
         shuffle=True,
-        pin_memory=device.type == "cuda",
-        drop_last=True,
+        pin_memory= "cuda",
         prefetch_factor=2,
     )
     
@@ -258,6 +256,9 @@ def main():
         
         if (step + 1) % log_freq == 0:
             logging.info(train_tracker)
+            # Flush logs immediately
+            for handler in logging.getLogger().handlers:
+                handler.flush()
             
             if use_wandb:
                 wandb_log_dict = train_tracker.to_dict()
@@ -272,6 +273,10 @@ def main():
             checkpoint_dir.mkdir(parents=True, exist_ok=True)
             
             logging.info(f"Saving checkpoint to {checkpoint_dir}")
+            # Flush logs before saving checkpoint
+            for handler in logging.getLogger().handlers:
+                handler.flush()
+            
             policy.save_pretrained(checkpoint_dir)
             preprocessor.save_pretrained(checkpoint_dir)
             postprocessor.save_pretrained(checkpoint_dir)
