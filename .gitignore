@@ -20,7 +20,7 @@ screenlog.*
 logs*
 tmp
 wandb
-
+datasets/
 # Data
 data
 outputs
