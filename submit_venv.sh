@@ -5,10 +5,6 @@
 #SBATCH --time=0-00:30
 #SBATCH --output=output/%N-%j.out
 
-module load python/3.11
+module load cuda
 
-echo "Activating virtual environment..."
-source .venv/bin/activate
-
-
-python lerobot/scripts/train.py --policy.type=pi0 --dataset.repo_id=lerobot/stanford_kuka_multimodal_dataset
+./train_groot.sh

@@ -1,0 +1,172 @@
+warning: The `extra-build-dependencies` option is experimental and may change without warning. Pass `--preview-features extra-build-dependencies` to disable this warning.
+INFO 2025-11-01 19:32:43 ot_train.py:163 {'batch_size': 32,
+ 'checkpoint_path': None,
+ 'dataset': {'episodes': None,
+             'image_transforms': {'enable': False,
+                                  'max_num_transforms': 3,
+                                  'random_order': False,
+                                  'tfs': {'affine': {'kwargs': {'degrees': [-5.0,
+                                                                            5.0],
+                                                                'translate': [0.05,
+                                                                              0.05]},
+                                                     'type': 'RandomAffine',
+                                                     'weight': 1.0},
+                                          'brightness': {'kwargs': {'brightness': [0.8,
+                                                                                   1.2]},
+                                                         'type': 'ColorJitter',
+                                                         'weight': 1.0},
+                                          'contrast': {'kwargs': {'contrast': [0.8,
+                                                                               1.2]},
+                                                       'type': 'ColorJitter',
+                                                       'weight': 1.0},
+                                          'hue': {'kwargs': {'hue': [-0.05,
+                                                                     0.05]},
+                                                  'type': 'ColorJitter',
+                                                  'weight': 1.0},
+                                          'saturation': {'kwargs': {'saturation': [0.5,
+                                                                                   1.5]},
+                                                         'type': 'ColorJitter',
+                                                         'weight': 1.0},
+                                          'sharpness': {'kwargs': {'sharpness': [0.5,
+                                                                                 1.5]},
+                                                        'type': 'SharpnessJitter',
+                                                        'weight': 1.0}}},
+             'repo_id': '/home/rayen/scratch/lerobot/datasets/youliangtan-so101-table-cleanup',
+             'revision': None,
+             'root': None,
+             'streaming': False,
+             'use_imagenet_stats': True,
+             'video_backend': 'torchcodec'},
+ 'env': None,
+ 'eval': {'batch_size': 50, 'n_episodes': 50, 'use_async_envs': False},
+ 'eval_freq': 20000,
+ 'job_name': 'groot_n1.5_youliangtan-so101-table-cleanup_bs32_lr0.0001_20251101_193233',
+ 'log_freq': 200,
+ 'num_workers': 4,
+ 'optimizer': {'betas': [0.95, 0.999],
+               'eps': 1e-08,
+               'grad_clip_norm': 10.0,
+               'lr': 0.0001,
+               'type': 'adamw',
+               'weight_decay': 1e-05},
+ 'output_dir': 'outputs/train/groot_n1.5_youliangtan-so101-table-cleanup_bs32_lr0.0001_20251101_193233',
+ 'policy': {'balance_dataset_weights': True,
+            'balance_trajectory_weights': True,
+            'base_model_path': 'nvidia/GR00T-N1.5-3B',
+            'batch_size': 32,
+            'chunk_size': 50,
+            'dataloader_num_workers': 8,
+            'dataset_paths': None,
+            'device': 'cuda',
+            'embodiment_tag': 'new_embodiment',
+            'image_size': [224, 224],
+            'input_features': {},
+            'license': None,
+            'lora_alpha': 16,
+            'lora_dropout': 0.1,
+            'lora_full_model': False,
+            'lora_rank': 0,
+            'max_action_dim': 32,
+            'max_state_dim': 64,
+            'max_steps': 10000,
+            'n_action_steps': 50,
+            'n_obs_steps': 1,
+            'normalization_mapping': {'ACTION': <NormalizationMode.MEAN_STD: 'MEAN_STD'>,
+                                      'STATE': <NormalizationMode.MEAN_STD: 'MEAN_STD'>,
+                                      'VISUAL': <NormalizationMode.IDENTITY: 'IDENTITY'>},
+            'optimizer_betas': [0.95, 0.999],
+            'optimizer_eps': 1e-08,
+            'optimizer_lr': 0.0001,
+            'optimizer_weight_decay': 1e-05,
+            'output_dir': './tmp/gr00t',
+            'output_features': {},
+            'pretrained_path': None,
+            'private': None,
+            'push_to_hub': False,
+            'repo_id': None,
+            'report_to': 'wandb',
+            'resume': False,
+            'save_steps': 1000,
+            'tags': None,
+            'tokenizer_assets_repo': 'lerobot/eagle2hg-processor-groot-n1p5',
+            'tune_diffusion_model': True,
+            'tune_llm': False,
+            'tune_projector': True,
+            'tune_visual': False,
+            'type': 'groot',
+            'use_amp': False,
+            'use_bf16': True,
+            'video_backend': 'decord',
+            'warmup_ratio': 0.05},
+ 'rename_map': {},
+ 'resume': False,
+ 'save_checkpoint': True,
+ 'save_freq': 5000,
+ 'scheduler': {'decay_lr': 1e-05,
+               'num_decay_steps': 10000,
+               'num_warmup_steps': 500,
+               'peak_lr': 0.0001,
+               'type': 'cosine_decay_with_warmup'},
+ 'seed': 1000,
+ 'steps': 10000,
+ 'use_policy_training_preset': True,
+ 'wandb': {'disable_artifact': False,
+           'enable': True,
+           'entity': None,
+           'mode': None,
+           'notes': None,
+           'project': 'lerobot',
+           'run_id': None}}
+/scratch/rayen/lerobot/.venv/lib/python3.11/site-packages/pydantic/_internal/_generate_schema.py:2249: UnsupportedFieldAttributeWarning: The 'repr' attribute with value False was provided to the `Field()` function, which has no effect in the context it was used. 'repr' is field-specific metadata, and can only be attached to a model field using `Annotated` metadata or by assignment. This may have happened because an `Annotated` type alias using the `type` statement was used, or if the `Field()` function was attached to a single member of a union type.
+  warnings.warn(
+/scratch/rayen/lerobot/.venv/lib/python3.11/site-packages/pydantic/_internal/_generate_schema.py:2249: UnsupportedFieldAttributeWarning: The 'frozen' attribute with value True was provided to the `Field()` function, which has no effect in the context it was used. 'frozen' is field-specific metadata, and can only be attached to a model field using `Annotated` metadata or by assignment. This may have happened because an `Annotated` type alias using the `type` statement was used, or if the `Field()` function was attached to a single member of a union type.
+  warnings.warn(
+INFO 2025-11-01 19:32:45 db_utils.py:104 Logs will be synced with wandb.
+INFO 2025-11-01 19:32:45 db_utils.py:105 Track this run --> https://wandb.ai/rayenghali02-university-of-moncton/lerobot/runs/ouvox9ey
+INFO 2025-11-01 19:32:45 ot_train.py:183 Creating dataset
+INFO 2025-11-01 19:32:45 ot_train.py:202 Creating policy
+[GROOT] Flash Attention version: 2.8.3
+Loading pretrained dual brain from nvidia/GR00T-N1.5-3B
+Tune backbone vision tower: False
+Tune backbone LLM: False
+Tune action head projector: True
+Tune action head DiT: True
+Fetching 13 files:   0%|          | 0/13 [00:00<?, ?it/s]Fetching 13 files: 100%|██████████| 13/13 [00:00<00:00, 154903.27it/s]
+INFO 2025-11-01 19:32:45 le2_5_vl.py:105 min_dynamic_tiles: 1
+INFO 2025-11-01 19:32:45 le2_5_vl.py:106 max_dynamic_tiles: 12
+INFO 2025-11-01 19:32:45 gle2_5_vl.py:64 vision_config is None. Initializing the InternVisionConfig with default values.
+INFO 2025-11-01 19:32:45 gle2_5_vl.py:68 text_config is None. Initializing the LlamaConfig config with default values (`LlamaConfig`).
+INFO 2025-11-01 19:32:45 le2_5_vl.py:105 min_dynamic_tiles: 1
+INFO 2025-11-01 19:32:45 le2_5_vl.py:106 max_dynamic_tiles: 6
+INFO 2025-11-01 19:32:49 le2_5_vl.py:101 num_image_token: 256
+INFO 2025-11-01 19:32:49 le2_5_vl.py:102 mlp_checkpoint: False
+[GROOT] Copying vendor Eagle files to cache: /scratch/rayen/lerobot/src/lerobot/policies/groot/eagle2_hg_model -> /home/rayen/.cache/huggingface/lerobot/lerobot/eagle2hg-processor-groot-n1p5
+[GROOT] Assets repo: lerobot/eagle2hg-processor-groot-n1p5 
+ Cache dir: /home/rayen/.cache/huggingface/lerobot/lerobot/eagle2hg-processor-groot-n1p5
+Tune backbone llm: False
+Tune backbone visual: True
+Total number of DiT parameters:  550386688
+Total number of SelfAttentionTransformer parameters:  201433088
+Tune action head projector: True
+Tune action head diffusion model: True
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:00<00:00,  3.58it/s]Loading checkpoint shards: 100%|██████████| 3/3 [00:01<00:00,  1.77it/s]Loading checkpoint shards: 100%|██████████| 3/3 [00:01<00:00,  1.96it/s]
+INFO 2025-11-01 19:32:54 ot_train.py:247 Creating optimizer and scheduler
+INFO 2025-11-01 19:32:54 ot_train.py:259 Output dir: outputs/train/groot_n1.5_youliangtan-so101-table-cleanup_bs32_lr0.0001_20251101_193233
+INFO 2025-11-01 19:32:54 ot_train.py:262 cfg.steps=10000 (10K)
+INFO 2025-11-01 19:32:54 ot_train.py:263 dataset.num_frames=46963 (47K)
+INFO 2025-11-01 19:32:54 ot_train.py:264 dataset.num_episodes=80
+INFO 2025-11-01 19:32:54 ot_train.py:267 Effective batch size: 32 x 1 = 32
+INFO 2025-11-01 19:32:54 ot_train.py:268 num_learnable_params=1068806144 (1B)
+INFO 2025-11-01 19:32:54 ot_train.py:269 num_total_params=2724163520 (3B)
+/scratch/rayen/lerobot/.venv/lib/python3.11/site-packages/torch/utils/data/dataloader.py:626: UserWarning: This DataLoader will create 4 worker processes in total. Our suggested max number of worker in current system is 1, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(
+INFO 2025-11-01 19:32:54 ot_train.py:324 Start offline training on a fixed dataset
+Tune backbone llm: False
+Tune backbone visual: False
+Warning: No backbone trainable parameters found.
+Tune action head projector: True
+Tune action head diffusion model: True
+`use_fast` is set to `True` but the image processor class does not have a fast version.  Falling back to the slow version.
+INFO 2025-11-01 19:36:49 ot_train.py:351 step:200 smpl:6K ep:11 epch:0.14 loss:0.245 grdn:2.416 lr:2.0e-05 updt_s:0.483 data_s:0.689
+INFO 2025-11-01 19:40:00 ot_train.py:351 step:400 smpl:13K ep:22 epch:0.27 loss:0.083 grdn:1.044 lr:6.0e-05 updt_s:0.307 data_s:0.649
+INFO 2025-11-01 19:43:11 ot_train.py:351 step:600 smpl:19K ep:33 epch:0.41 loss:0.064 grdn:0.812 lr:9.5e-05 updt_s:0.307 data_s:0.648

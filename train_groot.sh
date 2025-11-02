@@ -16,7 +16,7 @@ EMBODIMENT_TAG="so101"  # Change to match your robot embodiment
 
 # Dataset Configuration
 # Use absolute path for local dataset
-DATASET_REPO_ID="/home/recherche-a/OneDrive_recherche_a/Linux_onedrive/Projects_linux/Thesis/lerobot/datasets/youliangtan-so101-table-cleanup"
+DATASET_REPO_ID="/home/rayen/scratch/lerobot/datasets/youliangtan-so101-table-cleanup"
 
 # Training Hyperparameters
 BATCH_SIZE=32          # Default: 32, adjust based on GPU memory
@@ -69,19 +69,6 @@ OUTPUT_DIR="outputs/train/${JOB_NAME}"
 # Training Command
 # =============================================================================
 
-echo "=================================================="
-echo "GR00T N1.5 Training Configuration"
-echo "=================================================="
-echo "Model: ${POLICY_PATH}"
-echo "Dataset: ${DATASET_REPO_ID}"
-echo "Batch Size: ${BATCH_SIZE}"
-echo "Learning Rate: ${LEARNING_RATE}"
-echo "Steps: ${STEPS}"
-echo "Output: ${OUTPUT_DIR}"
-echo "Embodiment: ${EMBODIMENT_TAG}"
-echo "=================================================="
-echo ""
-
 uv run lerobot-train \
   --policy.type="${POLICY_TYPE}" \
   --policy.base_model_path="${POLICY_PATH}" \
@@ -108,16 +95,10 @@ uv run lerobot-train \
   --policy.chunk_size=${CHUNK_SIZE} \
   --policy.n_action_steps=${N_ACTION_STEPS} \
   --policy.n_obs_steps=${N_OBS_STEPS} \
-  --policy.image_size=${IMAGE_SIZE} ${IMAGE_SIZE} \
+  --policy.image_size="[${IMAGE_SIZE}, ${IMAGE_SIZE}]" \
+  --save_freq=${SAVE_FREQ}
 #   --policy.embodiment_tag="${EMBODIMENT_TAG}" \
-  --save_freq=${SAVE_FREQ} \
 #   --rename_map='{"observation.images.front": "observation.images.camera1", "observation.images.wrist": "observation.images.camera2"}'
-
-echo ""
-echo "=================================================="
-echo "Training completed!"
-echo "Output saved to: ${OUTPUT_DIR}"
-echo "=================================================="
 
 # All Available Policy Types:
 
