@@ -4,7 +4,7 @@
 MODEL_NAME="smolvla_base"
 POLICY_PATH="lerobot/smolvla_base"
 # Use absolute path for local dataset
-DATASET_REPO_ID="/home/recherche-a/OneDrive_recherche_a/Linux_onedrive/Projects_linux/Thesis/lerobot/datasets/youliangtan-so101-table-cleanup"
+DATASET_REPO_ID="/home/recherche-a/OneDrive_recherche_a/Linux_onedrive/Projects_linux/Thesis/lerobot/datasets/Rayen023/sort-blocks"
 BATCH_SIZE=64
 LEARNING_RATE=0.0003
 STEPS=50000
