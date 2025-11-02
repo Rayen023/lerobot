@@ -15,7 +15,7 @@
 # Dev scripts
 .dev
 screenlog.*
-
+extras/
 # Logging
 logs*
 tmp
@@ -24,7 +24,7 @@ datasets/
 # Data
 data
 outputs
-
+output/
 # Apple
 .DS_Store
 
