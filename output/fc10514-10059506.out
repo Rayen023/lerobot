@@ -170,3 +170,4 @@ Tune action head diffusion model: True
 INFO 2025-11-01 19:36:49 ot_train.py:351 step:200 smpl:6K ep:11 epch:0.14 loss:0.245 grdn:2.416 lr:2.0e-05 updt_s:0.483 data_s:0.689
 INFO 2025-11-01 19:40:00 ot_train.py:351 step:400 smpl:13K ep:22 epch:0.27 loss:0.083 grdn:1.044 lr:6.0e-05 updt_s:0.307 data_s:0.649
 INFO 2025-11-01 19:43:11 ot_train.py:351 step:600 smpl:19K ep:33 epch:0.41 loss:0.064 grdn:0.812 lr:9.5e-05 updt_s:0.307 data_s:0.648
+INFO 2025-11-01 19:46:22 ot_train.py:351 step:800 smpl:26K ep:44 epch:0.55 loss:0.052 grdn:0.666 lr:9.9e-05 updt_s:0.306 data_s:0.646
