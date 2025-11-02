@@ -19,8 +19,8 @@ EMBODIMENT_TAG="so101"  # Change to match your robot embodiment
 DATASET_REPO_ID="/home/rayen/scratch/lerobot/datasets/youliangtan-so101-table-cleanup"
 
 # Training Hyperparameters
-BATCH_SIZE=32          # Default: 32, adjust based on GPU memory
-LEARNING_RATE=0.0001   # Default: 1e-4
+BATCH_SIZE=120          # Default: 32, adjust based on GPU memory
+LEARNING_RATE=0.0003   # Default: 1e-4
 STEPS=10000            # Default: 10000, increase for better convergence
 WARMUP_RATIO=0.05      # 5% warmup steps
 
