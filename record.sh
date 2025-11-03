@@ -12,7 +12,7 @@ DATASET_REPO_ID=""
 # # Select which task to record (0-3)
 # TASK_INDEX=1
 # SINGLE_TASK="${TASKS[$TASK_INDEX]}"
-SINGLE_TASK="Sort the blocks by color: move all blue ones in the blue container and the green ones in the white container"
+SINGLE_TASK="Sort the blocks by color move all blue ones in the blue container and the green ones in the white container"
 
 DATASET_ROOT="/home/recherche-a/OneDrive_recherche_a/Linux_onedrive/Projects_linux/Thesis/lerobot/datasets/Rayen023/sort-blocks"
 DATASET_REPO_ID="Rayen023/sort-blocks"

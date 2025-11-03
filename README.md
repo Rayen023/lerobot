@@ -6,7 +6,9 @@ uv run python -m lerobot.datasets.v30.convert_dataset_v21_to_v30 --repo-id /home
 
 ```bash
 rsync -avz --progress datasets/ rayen@rorqual.alliancecan.ca:/home/rayen/links/scratch/datasets/
-rsync -avz --progress -e "ssh -o StrictHostKeyChecking=no" recherche-a@198.164.36.108:/home/recherche-a/OneDrive_recherche_a/Linux_onedrive/Projects_linux/Thesis/lerobot/datasets ./
+rsync -avz --progress datasets/ rayen@fir.alliancecan.ca:/home/rayen/scratch/datasets/
+rsync -avz --progress rayen@fir.alliancecan.ca:/home/rayen/scratch/lerobot/outputs/train/ /mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/Data2/VLA_weights_evals/gr00t_v3_weights/
+
 ```
 
 
@@ -21,7 +23,7 @@ uv run lerobot-calibrate
 # List available cameras and capture test images
 # Args: --output-dir, --record-time-s
 # Source: src/lerobot/scripts/lerobot_find_cameras.py
-uv run lerobot-find-cameras
+uv run lerobot-find-cameras opencv
 ```
 
 ```bash
@@ -122,3 +124,12 @@ uv pip install -e .[groot]
 
 git config --global user.email "rayenghali02@gmail.com"
 git config --global user.name "Rayen023"
+
+
+uv run python -m lerobot.scripts.lerobot_edit_dataset \
+>     --repo_id youliangtan-so101-table-cleanup_before_split \
+>     --root /home/recherche-a/OneDrive_recherche_a/Linux_onedrive/Projects_linux/Thesis/lerobot/datasets/youliangtan-so101-table-cleanup_before_split \
+>     --new_repo_id youliangtan-so101-table-cleanup \
+>     --operation.type delete_episodes \
+>     --operation.episode_indices "[20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79]" \
+>     --push_to_hub false

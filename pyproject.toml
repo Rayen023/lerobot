@@ -88,7 +88,8 @@ dependencies = [
     "feetech-servo-sdk>=1.0.0",
     "opencv-python>=4.12.0.88",
     "peft>=0.17.1",
-    "flash-attn==2.8.3"
+    "flash-attn==2.8.3",
+    "pynput>=1.8.1",
 ]
 
 # Optional dependencies
