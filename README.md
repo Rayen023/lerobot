@@ -6,9 +6,10 @@ uv run python -m lerobot.datasets.v30.convert_dataset_v21_to_v30 --repo-id /home
 
 ```bash
 rsync -avz --progress datasets/ rayen@rorqual.alliancecan.ca:/home/rayen/links/scratch/datasets/
-rsync -avz --progress datasets/ rayen@fir.alliancecan.ca:/home/rayen/scratch/datasets/
 rsync -avz --progress rayen@fir.alliancecan.ca:/home/rayen/scratch/lerobot/outputs/train/ /mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/Data2/VLA_weights_evals/gr00t_v3_weights/
-
+rsync -avz --progress datasets/ rayen@fir.alliancecan.ca:/home/rayen/scratch/datasets/
+rsync -avz --progress -e "ssh -o StrictHostKeyChecking=no" recherche-a@198.164.36.108:/home/recherche-a/OneDrive_recherche_a/Linux_onedrive/Projects_linux/Thesis/datasets ./
+rsync -avz --progress -e "ssh -o StrictHostKeyChecking=no" outputs/train/ recherche-a@198.164.36.108:/mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/Data2/VLA_weights_evals/gr00t_v3_weights/
 ```
 
 srun --jobid 10258419 --pty tmux new-session -d 'htop -u $USER' \; split-window -h 'watch nvidia-smi' \; attach
