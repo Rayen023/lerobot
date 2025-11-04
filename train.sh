@@ -6,8 +6,8 @@ POLICY_PATH="lerobot/smolvla_base"
 # Use absolute path for local dataset
 DATASET_REPO_ID="/home/recherche-a/OneDrive_recherche_a/Linux_onedrive/Projects_linux/Thesis/lerobot/datasets/Rayen023/sort-blocks"
 BATCH_SIZE=64
-LEARNING_RATE=0.0003
-STEPS=50000
+LEARNING_RATE=0.0001
+STEPS=20000
 DEVICE="cuda"
 PUSH_TO_HUB=false
 WANDB_ENABLE=true
@@ -32,4 +32,3 @@ uv run lerobot-train \
   --policy.push_to_hub=${PUSH_TO_HUB} \
   --policy.optimizer_lr=${LEARNING_RATE} \
   --rename_map='{"observation.images.front": "observation.images.camera1", "observation.images.wrist": "observation.images.camera2"}' \
-  --policy.empty_cameras=1
