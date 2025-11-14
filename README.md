@@ -186,9 +186,6 @@ rsync -avz --progress -e "ssh -o StrictHostKeyChecking=no" recherche-a@198.164.3
 
 ### Sync Training Outputs
 ```bash
-# From fir server (old weights)
-rsync -avz --progress rayen@fir.alliancecan.ca:/home/rayen/scratch/lerobot/outputs/train/ /mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/Data2/VLA_weights_evals/gr00t_v3_weights/
-
 # From fir server (new weights, with screen)
 screen -L rsync -avz --progress rayen@fir.alliancecan.ca:/home/rayen/scratch/lerobot/outputs/train/ /mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/Data2/VLA_weights_evals/new/
 
