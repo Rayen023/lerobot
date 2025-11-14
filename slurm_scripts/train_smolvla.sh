@@ -7,6 +7,16 @@
 
 module load cuda
 
+# Set Hugging Face cache to scratch to avoid home directory quota issues
+export HF_HOME="/home/rayen/scratch/lerobot/.cache/huggingface"
+export TRANSFORMERS_CACHE="/home/rayen/scratch/lerobot/.cache/huggingface/transformers"
+export HF_DATASETS_CACHE="/home/rayen/scratch/lerobot/.cache/huggingface/datasets"
+
+# Set WandB cache directory to scratch space instead of home directory
+export WANDB_CACHE_DIR="/home/rayen/scratch/wandb"
+export WANDB_DIR="/home/rayen/scratch/wandb"
+export WANDB_DATA_DIR="/home/rayen/scratch/wandb"
+
 # =============================================================================
 # SmolVLA Training Script with SLURM
 # Configuration for SmolVLA Vision-Language-Action model
@@ -21,11 +31,11 @@ POLICY_PATH="lerobot/smolvla_base"
 
 # Dataset Configuration
 # Use absolute path for local dataset
-DATASET_REPO_ID="/home/rayen/scratch/lerobot/datasets/Rayen023/sort-blocks"
-
-# Training Hyperparameters
-BATCH_SIZE=64
-LEARNING_RATE=0.0003
+# DATASET_REPO_ID="/home/rayen/scratch/lerobot/datasets/original_resized_rotated_cleaned"
+# DATASET_REPO_ID="/home/rayen/scratch/lerobot/datasets/sort-blocks"
+DATASET_REPO_ID="/home/rayen/scratch/lerobot/datasets/merged-so101-table-cleanup"
+# Training Hyperparameters 
+BATCH_SIZE=192 # 64 uses 16 gb VRAM
 STEPS=50000
 
 # Device Configuration
@@ -41,7 +51,7 @@ WANDB_ENABLE=true
 
 TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
 DATASET_NAME=$(basename "$DATASET_REPO_ID")
-JOB_NAME="${MODEL_NAME}_${DATASET_NAME}_bs${BATCH_SIZE}_lr${LEARNING_RATE}_stps${STEPS}_${TIMESTAMP}"
+JOB_NAME="${MODEL_NAME}_${DATASET_NAME}_bs${BATCH_SIZE}_${TIMESTAMP}"
 OUTPUT_DIR="outputs/train/${JOB_NAME}"
 
 # =============================================================================
@@ -58,6 +68,5 @@ uv run lerobot-train \
   --policy.device=${DEVICE} \
   --wandb.enable=${WANDB_ENABLE} \
   --policy.push_to_hub=${PUSH_TO_HUB} \
-  --policy.optimizer_lr=${LEARNING_RATE} \
   --rename_map='{"observation.images.front": "observation.images.camera1", "observation.images.wrist": "observation.images.camera2"}' \
-  --policy.empty_cameras=1
+  --save_freq=3000 \

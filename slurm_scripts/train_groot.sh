@@ -6,6 +6,17 @@
 #SBATCH --output=output/%N-%j.out
 
 module load cuda
+
+# Set Hugging Face cache to scratch to avoid home directory quota issues
+export HF_HOME="/home/rayen/scratch/lerobot/.cache/huggingface"
+export TRANSFORMERS_CACHE="/home/rayen/scratch/lerobot/.cache/huggingface/transformers"
+export HF_DATASETS_CACHE="/home/rayen/scratch/lerobot/.cache/huggingface/datasets"
+
+# Set WandB cache directory to scratch space instead of home directory
+export WANDB_CACHE_DIR="/home/rayen/scratch/wandb"
+export WANDB_DIR="/home/rayen/scratch/wandb"
+export WANDB_DATA_DIR="/home/rayen/scratch/wandb"
+
 # GR00T N1.5 Training Script
 # Configuration for NVIDIA's GR00T N1.5 foundation model
 # Model: nvidia/GR00T-N1.5-3B
@@ -22,45 +33,39 @@ EMBODIMENT_TAG="so101"  # Change to match your robot embodiment
 
 # Dataset Configuration
 # Use absolute path for local dataset
-DATASET_REPO_ID="/home/rayen/scratch/lerobot/datasets/youliangtan-so101-table-cleanup"
+# DATASET_REPO_ID="/home/rayen/scratch/lerobot/datasets/original_resized_rotated_cleaned"
+# DATASET_REPO_ID="/home/rayen/scratch/lerobot/datasets/sort-blocks"
+DATASET_REPO_ID="/home/rayen/scratch/lerobot/datasets/merged-so101-table-cleanup"
 
 # Training Hyperparameters
-BATCH_SIZE=120          # Default: 32, adjust based on GPU memory
-LEARNING_RATE=0.0003   # Default: 1e-4
-STEPS=10000            # Default: 10000, increase for better convergence
-WARMUP_RATIO=0.05      # 5% warmup steps
+BATCH_SIZE=120 #160 uses 80GB VRAM
+STEPS=50000
+# LEARNING_RATE=0.0003
+# WARMUP_RATIO=0.05
 
-# Device Configuration
-DEVICE="cuda"
-USE_BF16=true          # Use bfloat16 for memory efficiency
+# DEVICE="cuda"
+# USE_BF16=true
 
-# Fine-tuning Control (what parts of the model to train)
-TUNE_LLM=false              # Fine-tune the language model backbone
-TUNE_VISUAL=false           # Fine-tune the vision tower
-TUNE_PROJECTOR=true         # Fine-tune the projector (recommended)
-TUNE_DIFFUSION_MODEL=true   # Fine-tune the diffusion model (recommended)
+# TUNE_LLM=false
+# TUNE_VISUAL=false
+# TUNE_PROJECTOR=true
+# TUNE_DIFFUSION_MODEL=true
 
-# LoRA Configuration (optional, set lora_rank > 0 to enable)
-LORA_RANK=0            # 0 = disabled, 8-64 = enabled with rank
-LORA_ALPHA=16
-LORA_DROPOUT=0.1
+# LORA_RANK=0
+# LORA_ALPHA=16
+# LORA_DROPOUT=0.1
 
-# Model Dimensions
-MAX_STATE_DIM=64       # Maximum state dimension (zero-padded if smaller)
-MAX_ACTION_DIM=32      # Maximum action dimension (zero-padded if smaller)
-CHUNK_SIZE=50          # Action chunk size
-N_ACTION_STEPS=50      # Number of action steps to predict
-N_OBS_STEPS=1          # Number of observation steps
+# MAX_STATE_DIM=64
+# MAX_ACTION_DIM=32
+# CHUNK_SIZE=50
+# N_ACTION_STEPS=50
+# N_OBS_STEPS=1
 
-# Image Configuration
-IMAGE_SIZE=224         # Image size for GR00T (224x224)
+# IMAGE_SIZE=224
 
-# Embodiment Tag
-
-# Output and Logging
-PUSH_TO_HUB=false
-WANDB_ENABLE=true
-SAVE_FREQ=5000         # Save checkpoint every N steps
+# PUSH_TO_HUB=false
+# WANDB_ENABLE=true
+# SAVE_FREQ=5000
 
 # =============================================================================
 # Auto-generated Configuration
@@ -68,7 +73,7 @@ SAVE_FREQ=5000         # Save checkpoint every N steps
 
 TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
 DATASET_NAME=$(basename "$DATASET_REPO_ID")
-JOB_NAME="${MODEL_NAME}_${DATASET_NAME}_bs${BATCH_SIZE}_lr${LEARNING_RATE}_${TIMESTAMP}"
+JOB_NAME="${MODEL_NAME}_${DATASET_NAME}_bs${BATCH_SIZE}_${TIMESTAMP}"
 OUTPUT_DIR="outputs/train/${JOB_NAME}"
 
 # =============================================================================
@@ -83,26 +88,28 @@ uv run lerobot-train \
   --steps=${STEPS} \
   --output_dir="${OUTPUT_DIR}" \
   --job_name="${JOB_NAME}" \
-  --policy.device=${DEVICE} \
-  --wandb.enable=${WANDB_ENABLE} \
-  --policy.push_to_hub=${PUSH_TO_HUB} \
-  --policy.optimizer_lr=${LEARNING_RATE} \
-  --policy.warmup_ratio=${WARMUP_RATIO} \
-  --policy.use_bf16=${USE_BF16} \
-  --policy.tune_llm=${TUNE_LLM} \
-  --policy.tune_visual=${TUNE_VISUAL} \
-  --policy.tune_projector=${TUNE_PROJECTOR} \
-  --policy.tune_diffusion_model=${TUNE_DIFFUSION_MODEL} \
-  --policy.lora_rank=${LORA_RANK} \
-  --policy.lora_alpha=${LORA_ALPHA} \
-  --policy.lora_dropout=${LORA_DROPOUT} \
-  --policy.max_state_dim=${MAX_STATE_DIM} \
-  --policy.max_action_dim=${MAX_ACTION_DIM} \
-  --policy.chunk_size=${CHUNK_SIZE} \
-  --policy.n_action_steps=${N_ACTION_STEPS} \
-  --policy.n_obs_steps=${N_OBS_STEPS} \
-  --policy.image_size="[${IMAGE_SIZE}, ${IMAGE_SIZE}]" \
-  --save_freq=${SAVE_FREQ}
+  --policy.repo_id="${OUTPUT_DIR}" \
+  --policy.device="cuda" \
+  --wandb.enable=true \
+  --save_freq=3000 \
+  --policy.push_to_hub=false \
+#   --policy.optimizer_lr=${LEARNING_RATE} \
+#   --policy.warmup_ratio=${WARMUP_RATIO} \
+#   --policy.use_bf16=${USE_BF16} \
+#   --policy.tune_llm=${TUNE_LLM} \
+#   --policy.tune_visual=${TUNE_VISUAL} \
+#   --policy.tune_projector=${TUNE_PROJECTOR} \
+#   --policy.tune_diffusion_model=${TUNE_DIFFUSION_MODEL} \
+#   --policy.lora_rank=${LORA_RANK} \
+#   --policy.lora_alpha=${LORA_ALPHA} \
+#   --policy.lora_dropout=${LORA_DROPOUT} \
+#   --policy.max_state_dim=${MAX_STATE_DIM} \
+#   --policy.max_action_dim=${MAX_ACTION_DIM} \
+#   --policy.chunk_size=${CHUNK_SIZE} \
+#   --policy.n_action_steps=${N_ACTION_STEPS} \
+#   --policy.n_obs_steps=${N_OBS_STEPS} \
+#   --policy.image_size="[${IMAGE_SIZE}, ${IMAGE_SIZE}]" \
+#   --save_freq=${SAVE_FREQ}
 #   --policy.embodiment_tag="${EMBODIMENT_TAG}" \
 #   --rename_map='{"observation.images.front": "observation.images.camera1", "observation.images.wrist": "observation.images.camera2"}'
 
