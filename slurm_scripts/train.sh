@@ -7,9 +7,13 @@
 
 module load cuda
 
-MODEL_NAME="${1:-pi05}"
+: '
+sbatch slurm_scripts/train.sh groot
+sbatch slurm_scripts/train.sh pi05
+sbatch slurm_scripts/train.sh smolvla
 
-# MODEL_NAME = "groot"
+MAKE SURE TO COMMENT OR UNCOMMENT THE COMMON HYPERPARAMS
+ '
 
 export HF_HOME="/home/rayen/scratch/lerobot/.cache/huggingface"
 export TRANSFORMERS_CACHE="/home/rayen/scratch/lerobot/.cache/huggingface/transformers"
@@ -18,11 +22,15 @@ export WANDB_CACHE_DIR="/home/rayen/scratch/lerobot/.cache/wandb"
 export WANDB_DIR="/home/rayen/scratch/lerobot/.cache/wandb"
 export WANDB_DATA_DIR="/home/rayen/scratch/lerobot/.cache/wandb"
 
+MODEL_NAME="${1:-groot}"
+# MODEL_NAME = "groot"
+DATASET_ROOT="/home/rayen/scratch/lerobot/datasets/Backups/sort-blocks-2"
+
+
 case "$MODEL_NAME" in
   groot)
     POLICY_TYPE="groot"
     POLICY_PATH="nvidia/GR00T-N1.5-3B"
-    DATASET_ROOT="/home/rayen/scratch/lerobot/datasets/Backups/sort-blocks-2"
     BATCH_SIZE=64
     STEPS=10000
     SAVE_FREQ=2000
@@ -31,7 +39,6 @@ case "$MODEL_NAME" in
   pi05)
     POLICY_PATH="lerobot/pi05_base"
     POLICY_TYPE="pi05"
-    DATASET_ROOT="/home/rayen/scratch/lerobot/datasets/merged-sort-blocks-123"
     BATCH_SIZE=64
     STEPS=60000
     SAVE_FREQ=2000
@@ -43,12 +50,11 @@ case "$MODEL_NAME" in
     ;;
   smolvla)
     POLICY_PATH="lerobot/smolvla_base"
-    DATASET_ROOT="/home/rayen/scratch/lerobot/datasets/merged-sort-blocks-123"
     BATCH_SIZE=192
     STEPS=50000
     SAVE_FREQ=2000
     RENAME_MAP='{"observation.images.front": "observation.images.camera1", "observation.images.wrist": "observation.images.camera2"}'
-    EXTRA_ARGS="--policy.path=${POLICY_PATH} --rename_map=${RENAME_MAP}"
+    EXTRA_ARGS="--policy.path=${POLICY_PATH} --rename_map='${RENAME_MAP}'"
     ;;
   *)
     echo "Unknown model: $MODEL_NAME. Use: groot, pi05, or smolvla"
@@ -56,10 +62,17 @@ case "$MODEL_NAME" in
     ;;
 esac
 
+BATCH_SIZE=64
+STEPS=1000
+SAVE_FREQ=200
+
 TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
 DATASET_NAME=$(basename "$DATASET_ROOT")
 JOB_NAME="${MODEL_NAME}_${DATASET_NAME}_bs${BATCH_SIZE}_${TIMESTAMP}"
 OUTPUT_DIR="outputs/train/${JOB_NAME}"
+
+echo "JOB_NAME: $JOB_NAME"
+
 
 eval uv run lerobot-train \
   ${EXTRA_ARGS} \
