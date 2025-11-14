@@ -1,24 +1,14 @@
-# You can record one task at a time by commenting out the others
-# TASKS=(
-#   "Grab pens and place into pen holder"
-#   "Grab markers and place into pen holder"
-#   "Grab tapes and place into pen holder"
-#   "Grab scissor and place into pen holder"
-# )
+TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
 
-# # Select which task to record (0-3)
-# TASK_INDEX=1
-# SINGLE_TASK="${TASKS[$TASK_INDEX]}"
 SINGLE_TASK="Put the red lego block in the black cup"
+DATASET_NAME="red-block-1_${TIMESTAMP}"
 
-DATASET_ROOT="/home/recherche-a/OneDrive_recherche_a/Linux_onedrive/Projects_linux/Thesis/lerobot/datasets/Rayen023/red-block-1"
-DATASET_REPO_ID="Rayen023/red-block-1"
+DATASET_ROOT="/home/recherche-a/OneDrive_recherche_a/Linux_onedrive/Projects_linux/Thesis/lerobot/datasets/Rayen023/${DATASET_NAME}"
+DATASET_REPO_ID="Rayen023/${DATASET_NAME}"
 
 echo "Recording task: $SINGLE_TASK"
+echo "Dataset: $DATASET_NAME"
 
-# Camera configuration (matching the dataset)
-# Adjust the camera indices (/dev/video0, /dev/video2, etc.) to match your setup
-# Note: Camera keys should be simple names (e.g., "front", "wrist"), not full paths
 uv run lerobot-record \
   --robot.type=so101_follower \
   --robot.port=/dev/ttyACM0 \
@@ -26,19 +16,17 @@ uv run lerobot-record \
   --robot.cameras='{
     "front": {
       "type": "opencv",
-      "index_or_path": 2,
-      "fps": 30,
-      "width": 640,
-      "height": 480,
-      "rotation": 0
-    },
-    "wrist": {
-      "type": "opencv",
       "index_or_path": 0,
       "fps": 30,
       "width": 640,
       "height": 480,
-      "rotation": 0
+    },
+    "wrist": {
+      "type": "opencv",
+      "index_or_path": 2,
+      "fps": 30,
+      "width": 640,
+      "height": 480,
     }
   }' \
   --teleop.type=so101_leader \
