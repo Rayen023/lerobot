@@ -1,6 +1,3 @@
-DATASET_REPO_ID=""
-
-
 # You can record one task at a time by commenting out the others
 # TASKS=(
 #   "Grab pens and place into pen holder"
@@ -12,10 +9,10 @@ DATASET_REPO_ID=""
 # # Select which task to record (0-3)
 # TASK_INDEX=1
 # SINGLE_TASK="${TASKS[$TASK_INDEX]}"
-SINGLE_TASK="Sort the blocks by color move all blue ones in the blue container and the green ones in the white container"
+SINGLE_TASK="Put the red lego block in the black cup"
 
-DATASET_ROOT="/home/recherche-a/OneDrive_recherche_a/Linux_onedrive/Projects_linux/Thesis/lerobot/datasets/Rayen023/sort-blocks"
-DATASET_REPO_ID="Rayen023/sort-blocks"
+DATASET_ROOT="/home/recherche-a/OneDrive_recherche_a/Linux_onedrive/Projects_linux/Thesis/lerobot/datasets/Rayen023/red-block-1"
+DATASET_REPO_ID="Rayen023/red-block-1"
 
 echo "Recording task: $SINGLE_TASK"
 
@@ -52,12 +49,12 @@ uv run lerobot-record \
   --dataset.single_task="$SINGLE_TASK" \
   --dataset.fps=30 \
   --dataset.episode_time_s=60 \
-  --dataset.reset_time_s=60 \
-  --dataset.num_episodes=30 \
+  --dataset.reset_time_s=600 \
+  --dataset.num_episodes=150 \
   --dataset.video=true \
   --dataset.push_to_hub=false \
   --play_sounds=true \
   --display_data=false \
-  --resume=true
+  # --resume=true
 
 echo "Recording completed for task: $SINGLE_TASK"
