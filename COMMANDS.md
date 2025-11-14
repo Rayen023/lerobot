@@ -197,7 +197,7 @@ rsync -avz --progress -e "ssh -o StrictHostKeyChecking=no" outputs/train/ recher
 
 ### Monitor Job with tmux
 ```bash
-srun --jobid 10258419 --pty tmux new-session -d 'htop -u $USER' \; split-window -h 'watch nvidia-smi' \; attach
+srun --jobid 11266532 --pty tmux new-session -d 'htop -u $USER' \; split-window -h 'watch nvidia-smi' \; attach
 ```
 
 scancel -u $USER
