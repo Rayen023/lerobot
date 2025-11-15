@@ -14,7 +14,7 @@ import time
 
 # POLICY_PATH = "/mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/Data2/VLA_weights_evals/new/groot_n1.5_merged-so101-table-cleanup_bs120_20251103_204808/checkpoints/021000/pretrained_model" #good
 # POLICY_PATH = "/mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/Data2/VLA_weights_evals/new/groot_n1.5_sort-blocks_bs120_20251103_204808/checkpoints/021000/pretrained_model"
-POLICY_PATH = "/mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/Data2/VLA_weights_evals/new/smolvla_base_merged-so101-table-cleanup_bs192_20251103_205130/checkpoints/009000/pretrained_model"
+# POLICY_PATH = "/mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/Data2/VLA_weights_evals/new/smolvla_base_merged-so101-table-cleanup_bs192_20251103_205130/checkpoints/009000/pretrained_model"
 # POLICY_PATH = "/mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/Data2/VLA_weights_evals/new/groot_n1.5_original_resized_rotated_cleaned_bs120_20251103_204808/checkpoints/003000/pretrained_model"
 # POLICY_PATH = "/mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/Data2/VLA_weights_evals/new/smolvla_base_sort-blocks_bs192_20251103_205623/checkpoints/009000/pretrained_model"
 
@@ -23,7 +23,7 @@ POLICY_PATH = "/mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/Data2/VLA_weights_evals
 # POLICY_PATH = "/mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/Data2/VLA_weights_evals/new/groot_n1.5_sort-blocks-2_bs120_20251109_135733/checkpoints/012000/pretrained_model" # works but slow and makes errors
 # POLICY_PATH = "/mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/Data2/VLA_weights_evals/new/groot_n1.5_sort-blocks-2_bs120_20251109_135733/checkpoints/040000/pretrained_model" #works made 1 error and needed a bit of help
 # POLICY_PATH = "/mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/Data2/VLA_weights_evals/new/groot_n1.5_sort-blocks-2_bs120_20251109_135733/checkpoints/028000/pretrained_model" #meeh
-# POLICY_PATH = "/mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/Data2/VLA_weights_evals/new/groot_n1.5_sort-blocks-2_bs120_20251109_135733/checkpoints/034000/pretrained_model" #good good works made 1 error and needed a bit of help 
+POLICY_PATH = "/mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/Data2/VLA_weights_evals/new/groot_n1.5_sort-blocks-2_bs120_20251109_135733/checkpoints/034000/pretrained_model" #good good works made 1 error and needed a bit of help 
 
 # POLICY_PATH = "/mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/Data2/VLA_weights_evals/new/groot_n1.5_sort-blocks_bs120_20251109_135718/checkpoints/008000/pretrained_model" #awfull
 # POLICY_PATH = "/mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/Data2/VLA_weights_evals/new/groot_n1.5_merged-sort-blocks-123_bs120_20251105_215209/checkpoints/012000/pretrained_model" #awfull

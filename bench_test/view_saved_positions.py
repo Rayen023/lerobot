@@ -82,8 +82,8 @@ def load_positions_from_csv(csv_filename):
 
 
 def main():
-    camera_index = 2
-    csv_filename = "object_positions.csv"
+    camera_index = 0
+    csv_filename = "bench_test/object_positions.csv"
     
     # Load positions from CSV
     print(f"Loading positions from {csv_filename}...")
@@ -97,8 +97,8 @@ def main():
     
     # Load overlay images
     print("Loading overlay images...")
-    cup_img = cv2.imread("cup.png", cv2.IMREAD_UNCHANGED)
-    block_img = cv2.imread("legoblock.png", cv2.IMREAD_UNCHANGED)
+    cup_img = cv2.imread("bench_test/cup.png", cv2.IMREAD_UNCHANGED)
+    block_img = cv2.imread("bench_test/legoblock.png", cv2.IMREAD_UNCHANGED)
     
     if cup_img is None:
         print("Error: Could not load cup.png")

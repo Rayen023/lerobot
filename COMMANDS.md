@@ -154,9 +154,9 @@ uv run python -m lerobot.scripts.lerobot_edit_dataset \
 ### Merge Datasets
 ```bash
 uv run lerobot-edit-dataset \
-    --repo_id /home/recherche-a/OneDrive_recherche_a/Linux_onedrive/Projects_linux/Thesis/datasets/Backups/merged-sort-blocks-all \
+    --repo_id /home/recherche-a/OneDrive_recherche_a/Linux_onedrive/Projects_linux/Thesis/datasets/sort-blocks-all \
     --operation.type merge \
-    --operation.repo_ids "['/home/recherche-a/OneDrive_recherche_a/Linux_onedrive/Projects_linux/Thesis/datasets/Backups/sort-blocks', '/home/recherche-a/OneDrive_recherche_a/Linux_onedrive/Projects_linux/Thesis/datasets/Backups/sort-blocks-2']" \
+    --operation.repo_ids "['/home/recherche-a/OneDrive_recherche_a/Linux_onedrive/Projects_linux/Thesis/datasets/sort-blocks-2', '/home/recherche-a/OneDrive_recherche_a/Linux_onedrive/Projects_linux/Thesis/datasets/sort-blocks-3']" \
     --push_to_hub false
 ```
 
@@ -178,7 +178,7 @@ screen -L uv run python src/lerobot/datasets/v30/augment_dataset_quantile_stats.
 ### Sync Datasets
 ```bash
 # To fir server
-rsync -avz --progress datasets/ rayen@fir.alliancecan.ca:/home/rayen/scratch/lerobot/datasets
+screen -L rsync -avz --progress /home/recherche-a/OneDrive_recherche_a/Linux_onedrive/Projects_linux/Thesis/datasets/ rayen@fir.alliancecan.ca:/home/rayen/scratch/lerobot/datasets/
 
 # From local server
 rsync -avz --progress -e "ssh -o StrictHostKeyChecking=no" recherche-a@198.164.36.108:/home/recherche-a/OneDrive_recherche_a/Linux_onedrive/Projects_linux/Thesis/datasets ./
