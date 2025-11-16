@@ -1,13 +1,12 @@
 TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
 
-SINGLE_TASK="Put the red lego block in the black cup"
-DATASET_NAME="red-block-1_${TIMESTAMP}"
+# DATASET_REPO_ID="Rayen023/sort-blocks-3_${TIMESTAMP}"
+# DATASET_ROOT="/home/recherche-a/OneDrive_recherche_a/Linux_onedrive/Projects_linux/Thesis/lerobot/datasets/${DATASET_REPO_ID}"
 
-DATASET_ROOT="/home/recherche-a/OneDrive_recherche_a/Linux_onedrive/Projects_linux/Thesis/lerobot/datasets/Rayen023/${DATASET_NAME}"
-DATASET_REPO_ID="Rayen023/${DATASET_NAME}"
+DATASET_REPO_ID="Rayen023/sort-blocks-3_20251114_191052"
+DATASET_ROOT="/home/recherche-a/OneDrive_recherche_a/Linux_onedrive/Projects_linux/Thesis/lerobot/datasets/Rayen023/sort-blocks-3_20251114_191052"
 
-echo "Recording task: $SINGLE_TASK"
-echo "Dataset: $DATASET_NAME"
+SINGLE_TASK="Sort the blocks by color move all blue ones in the blue container and the green ones in the white container"
 
 uv run lerobot-record \
   --robot.type=so101_follower \
@@ -36,13 +35,11 @@ uv run lerobot-record \
   --dataset.root="$DATASET_ROOT" \
   --dataset.single_task="$SINGLE_TASK" \
   --dataset.fps=30 \
-  --dataset.episode_time_s=60 \
+  --dataset.episode_time_s=600 \
   --dataset.reset_time_s=600 \
-  --dataset.num_episodes=150 \
+  --dataset.num_episodes=20 \
   --dataset.video=true \
   --dataset.push_to_hub=false \
   --play_sounds=true \
   --display_data=false \
-  # --resume=true
-
-echo "Recording completed for task: $SINGLE_TASK"
+  --resume=true
