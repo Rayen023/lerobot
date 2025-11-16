@@ -1,16 +1,16 @@
 #!/bin/bash
 #SBATCH --account=def-selouani
-#SBATCH --gres=gpu:h100:1 
+#SBATCH --gres=gpu:h100:1
 #SBATCH --mem=80G
-#SBATCH --time=0-02:00
+#SBATCH --time=2-00:00
 #SBATCH --output=output/%N-%j.out
 
 module load cuda
 
 : '
-sbatch slurm_scripts/train.sh groot
-sbatch slurm_scripts/train.sh pi05
-sbatch slurm_scripts/train.sh smolvla
+sbatch train.sh groot
+sbatch train.sh smolvla
+sbatch train.sh pi05
 
 MAKE SURE TO COMMENT OR UNCOMMENT THE COMMON HYPERPARAMS
  '
@@ -24,15 +24,16 @@ export WANDB_DATA_DIR="/home/rayen/scratch/lerobot/.cache/wandb"
 
 MODEL_NAME="${1:-groot}"
 # MODEL_NAME = "groot"
-DATASET_ROOT="/home/rayen/scratch/lerobot/datasets/Backups/sort-blocks-2"
-
+# DATASET_ROOT="/home/rayen/scratch/lerobot/datasets/merged-pick-place-red-block-12"
+# DATASET_ROOT="/home/rayen/scratch/lerobot/datasets/sort-blocks-all"
+DATASET_ROOT="/home/rayen/scratch/lerobot/datasets/cleanup-table-all"
 
 case "$MODEL_NAME" in
   groot)
     POLICY_TYPE="groot"
     POLICY_PATH="nvidia/GR00T-N1.5-3B"
-    BATCH_SIZE=64
-    STEPS=10000
+    BATCH_SIZE=120
+    STEPS=40000
     SAVE_FREQ=2000
     EXTRA_ARGS="--policy.type=${POLICY_TYPE} --policy.base_model_path=${POLICY_PATH} --policy.repo_id=\${OUTPUT_DIR}"
     ;;
@@ -62,9 +63,11 @@ case "$MODEL_NAME" in
     ;;
 esac
 
-BATCH_SIZE=64
-STEPS=1000
-SAVE_FREQ=200
+# can save at 2k but delete checkpoints before sending
+
+# BATCH_SIZE=64
+# STEPS=30000
+# SAVE_FREQ=4000
 
 TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
 DATASET_NAME=$(basename "$DATASET_ROOT")
