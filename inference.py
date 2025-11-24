@@ -12,6 +12,12 @@ from lerobot.cameras.configs import ColorMode, Cv2Rotation
 from PIL import Image
 import time
 
+# POLICY_PATH ="/home/recherche-a/OneDrive_recherche_a/Linux_onedrive/Projects_linux/Thesis/models/groot_cleanup-table-all_bs120_20251115_094542_20000/pretrained_model"
+# POLICY_PATH ="/home/recherche-a/OneDrive_recherche_a/Linux_onedrive/Projects_linux/Thesis/models/groot_sort-blocks-all_bs120_20251115_171714_8000/pretrained_model"
+
+# POLICY_PATH = "/mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/Data2/VLA_weights_evals/new/groot_cleanup-table-all_bs120_20251115_094542/checkpoints/020000/pretrained_model" #great, just have to have pencil case in middle
+# POLICY_PATH = "/mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/Data2/VLA_weights_evals/new/groot_sort-blocks-all_bs120_20251115_171714/checkpoints/008000/pretrained_model" #great, make sure to have white on the left
+
 # POLICY_PATH = "/mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/Data2/VLA_weights_evals/new/groot_n1.5_merged-so101-table-cleanup_bs120_20251103_204808/checkpoints/021000/pretrained_model" #good
 # POLICY_PATH = "/mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/Data2/VLA_weights_evals/new/groot_n1.5_sort-blocks_bs120_20251103_204808/checkpoints/021000/pretrained_model"
 # POLICY_PATH = "/mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/Data2/VLA_weights_evals/new/smolvla_base_merged-so101-table-cleanup_bs192_20251103_205130/checkpoints/009000/pretrained_model"
@@ -23,12 +29,42 @@ import time
 # POLICY_PATH = "/mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/Data2/VLA_weights_evals/new/groot_n1.5_sort-blocks-2_bs120_20251109_135733/checkpoints/012000/pretrained_model" # works but slow and makes errors
 # POLICY_PATH = "/mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/Data2/VLA_weights_evals/new/groot_n1.5_sort-blocks-2_bs120_20251109_135733/checkpoints/040000/pretrained_model" #works made 1 error and needed a bit of help
 # POLICY_PATH = "/mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/Data2/VLA_weights_evals/new/groot_n1.5_sort-blocks-2_bs120_20251109_135733/checkpoints/028000/pretrained_model" #meeh
-POLICY_PATH = "/mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/Data2/VLA_weights_evals/new/groot_n1.5_sort-blocks-2_bs120_20251109_135733/checkpoints/034000/pretrained_model" #good good works made 1 error and needed a bit of help 
+# POLICY_PATH = "/mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/Data2/VLA_weights_evals/new/groot_n1.5_sort-blocks-2_bs120_20251109_135733/checkpoints/034000/pretrained_model" #good good works made 1 error and needed a bit of help 
 
 # POLICY_PATH = "/mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/Data2/VLA_weights_evals/new/groot_n1.5_sort-blocks_bs120_20251109_135718/checkpoints/008000/pretrained_model" #awfull
 # POLICY_PATH = "/mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/Data2/VLA_weights_evals/new/groot_n1.5_merged-sort-blocks-123_bs120_20251105_215209/checkpoints/012000/pretrained_model" #awfull
 # POLICY_PATH = "/mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/Data2/VLA_weights_evals/new/groot_n1.5_merged-sort-blocks-123_bs120_20251105_222024/checkpoints/024000/pretrained_model"  #awfull
 # POLICY_PATH = "/mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/Data2/VLA_weights_evals/new/groot_n1.5_sort-blocks-2_bs120_20251106_174101/checkpoints/010000/pretrained_model" #good at sorting but not as good in picking up the blocks
+
+# POLICY_PATH = "/mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/Data2/VLA_weights_evals/new/groot_merged-pick-place-red-block-12_bs64_20251114_203424/checkpoints/004000/pretrained_model" #not bad
+# POLICY_PATH = "/mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/Data2/VLA_weights_evals/new/groot_merged-pick-place-red-block-12_bs64_20251114_203424/checkpoints/020000/pretrained_model" # meh 
+# POLICY_PATH = "/mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/Data2/VLA_weights_evals/new/groot_merged-pick-place-red-block-all_bs120_20251115_094542/checkpoints/000400/pretrained_model" #awfull
+# POLICY_PATH = "/mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/Data2/VLA_weights_evals/new/groot_n1.5_merged-pick-place-red-block-12_bs120_20251105_152519/checkpoints/022000/pretrained_model" #meh
+# POLICY_PATH = "/mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/Data2/VLA_weights_evals/new/smolvla_merged-pick-place-red-block-12_bs64_20251116_080902/checkpoints/030000/pretrained_model" #bad
+# POLICY_PATH = "/mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/Data2/VLA_weights_evals/new/smolvla_merged-pick-place-red-block-12_bs64_20251116_080902/checkpoints/004000/pretrained_model" #bad
+# POLICY_PATH = "/mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/Data2/VLA_weights_evals/new/smolvla_merged-pick-place-red-block-12_bs64_20251115_031427/checkpoints/008000/pretrained_model" # a bit better but still bad
+# POLICY_PATH = "/mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/Data2/VLA_weights_evals/new/groot_sort-blocks-all_bs120_20251115_171714/checkpoints/020000/pretrained_model" #good
+# POLICY_PATH = "/mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/Data2/VLA_weights_evals/new/groot_sort-blocks-all_bs120_20251115_171714/checkpoints/008000/pretrained_model" #great, make sure to have white on the left
+# POLICY_PATH = "/mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/Data2/VLA_weights_evals/new/groot_sort-blocks-all_bs120_20251115_171714/checkpoints/016000/pretrained_model" #meh
+
+# POLICY_PATH = "/mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/Data2/VLA_weights_evals/new/groot_cleanup-table-all_bs120_20251115_094542/checkpoints/012000/pretrained_model" #so bad
+# POLICY_PATH = "/mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/Data2/VLA_weights_evals/new/groot_n1.5_merged-pick-place-red-block-12_bs120_20251105_152519/checkpoints/002000/pretrained_model" #bad
+# POLICY_PATH = "/mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/Data2/VLA_weights_evals/new/pi05_merged-pick-place-red-block-12_bs64_20251115_094542/checkpoints/024000/pretrained_model" #bad
+# POLICY_PATH = "/mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/Data2/VLA_weights_evals/new/groot_cleanup-table-all_bs120_20251115_094542/checkpoints/004000/pretrained_model" # awfull
+# POLICY_PATH = "/mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/Data2/VLA_weights_evals/new/groot_cleanup-table-all_bs120_20251115_094542/checkpoints/020000/pretrained_model" #great, just have to have pencil case in middle
+# POLICY_PATH = "/mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/Data2/VLA_weights_evals/new/groot_cleanup-table-all_bs120_20251115_094542/checkpoints/012000/pretrained_model" meh
+# POLICY_PATH = "/mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/Data2/VLA_weights_evals/new/smolvla_base_pick-place-red-block-all_bs96_20251120_134151/checkpoints/028000/pretrained_model" #works sometimes
+# POLICY_PATH="/mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/Data2/VLA_weights_evals/new/smolvla_base_pick-place-red-block-all_bs90_20251120_224031/checkpoints/050000/pretrained_model" #awfull
+# POLICY_PATH="/mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/Data2/VLA_weights_evals/new/smolvla_base_pick-place-red-block-all_bs64_20251121_113811/checkpoints/010000/pretrained_model" #not bad
+# POLICY_PATH="/mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/Data2/VLA_weights_evals/new/smolvla_base_pick-place-red-block-all_bs64_20251121_113811/checkpoints/006000/pretrained_model" #awfull
+# POLICY_PATH="/mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/Data2/VLA_weights_evals/new/smolvla_base_pick-place-red-block-all_bs64_20251121_113811/checkpoints/016000/pretrained_model" #meh to bad
+# POLICY_PATH="/mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/Data2/VLA_weights_evals/new/smolvla_base_pick-place-red-block-all_bs64_20251121_113811/checkpoints/024000/pretrained_model" #meh to bad
+# POLICY_PATH="/mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/Data2/VLA_weights_evals/new/smolvla_base_pick-place-red-block-all_bs64_20251121_113811/checkpoints/008000/pretrained_model" #meh to bad
+POLICY_PATH = "/mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/Data2/VLA_weights_evals/new/smolvla_base_pick-place-red-block-3_bs64_20251121_190713/checkpoints/016000/pretrained_model" #good
+POLICY_PATH = "/mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/Data2/VLA_weights_evals/new/smolvla_base_pick-place-red-block-3_bs64_20251121_190713/checkpoints/026000/pretrained_model" #meh
+POLICY_PATH = "/mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/Data2/VLA_weights_evals/new/smolvla_base_pick-place-red-block-3_bs64_20251121_190713/checkpoints/006000/pretrained_model" #meh
+POLICY_PATH = "/mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/Data2/VLA_weights_evals/new/smolvla_base_pick-place-red-block-3_bs64_20251121_190713/checkpoints/012000/pretrained_model" #good
+
 
 # Task description mapping
 TASK_DESCRIPTIONS = {
@@ -82,6 +118,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 policy_config = PreTrainedConfig.from_pretrained(POLICY_PATH)
 policy_config.device = str(device)
+# policy_config.empty_cameras = 1 #remember to disable
 
 policy_cls = get_policy_class(policy_config.type)
 
@@ -110,6 +147,7 @@ try:
     obs = robot.get_observation()
     Image.fromarray(obs["wrist"]).save(f"outputs/captured_images_during_inference/wrist_camera.jpg")
     Image.fromarray(obs["front"]).save(f"outputs/captured_images_during_inference/front_camera.jpg")
+    # exit()
 
     while True:
         obs = robot.get_observation()
