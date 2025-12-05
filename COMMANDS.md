@@ -187,7 +187,7 @@ screen -L uv run python src/lerobot/datasets/v30/augment_dataset_quantile_stats.
 ### Sync Datasets
 ```bash
 # To fir server
-screen -L rsync -avz --progress /home/recherche-a/OneDrive_recherche_a/Linux_onedrive/Projects_linux/Thesis/datasets/ rayen@fir.alliancecan.ca:/home/rayen/scratch/lerobot/datasets/
+screen -L rsync -avz --progress --delete /home/recherche-a/OneDrive_recherche_a/Linux_onedrive/Projects_linux/Thesis/datasets/ rayen@fir.alliancecan.ca:/home/rayen/scratch/lerobot/datasets/
 
 # From local server
 rsync -avz --progress -e "ssh -o StrictHostKeyChecking=no" recherche-a@198.164.36.108:/home/recherche-a/OneDrive_recherche_a/Linux_onedrive/Projects_linux/Thesis/datasets ./

@@ -2,7 +2,7 @@
 #SBATCH --account=def-selouani
 #SBATCH --gres=gpu:h100:1
 #SBATCH --mem=80G
-#SBATCH --time=2-00:00
+#SBATCH --time=1-17:00
 #SBATCH --output=output/%N-%j.out
 
 module load cuda
@@ -26,15 +26,19 @@ MODEL_NAME="${1:-groot}"
 # MODEL_NAME = "groot"
 # DATASET_ROOT="/home/rayen/scratch/lerobot/datasets/merged-pick-place-red-block-12"
 # DATASET_ROOT="/home/rayen/scratch/lerobot/datasets/sort-blocks-all"
-DATASET_ROOT="/home/rayen/scratch/lerobot/datasets/cleanup-table-all"
+# DATASET_ROOT="/home/rayen/scratch/lerobot/datasets/cleanup-table-all"
+DATASET_ROOT="/home/rayen/scratch/lerobot/datasets/pick-place-red-block-all"
+# DATASET_ROOT="/home/rayen/scratch/lerobot/datasets/pick-place-red-block-3"
 
 case "$MODEL_NAME" in
   groot)
     POLICY_TYPE="groot"
     POLICY_PATH="nvidia/GR00T-N1.5-3B"
     BATCH_SIZE=120
-    STEPS=40000
+    STEPS=30000
     SAVE_FREQ=2000
+    CHUNK_SIZE=20
+    N_ACTION_STEPS=20
     EXTRA_ARGS="--policy.type=${POLICY_TYPE} --policy.base_model_path=${POLICY_PATH} --policy.repo_id=\${OUTPUT_DIR}"
     ;;
   pi05)
@@ -43,6 +47,8 @@ case "$MODEL_NAME" in
     BATCH_SIZE=64
     STEPS=60000
     SAVE_FREQ=2000
+    CHUNK_SIZE=50
+    N_ACTION_STEPS=50
     COMPILE_MODEL=true
     GRADIENT_CHECKPOINTING=true
     DTYPE=bfloat16
@@ -52,8 +58,10 @@ case "$MODEL_NAME" in
   smolvla)
     POLICY_PATH="lerobot/smolvla_base"
     BATCH_SIZE=192
-    STEPS=50000
+    STEPS=30000
     SAVE_FREQ=2000
+    CHUNK_SIZE=50
+    N_ACTION_STEPS=50
     RENAME_MAP='{"observation.images.front": "observation.images.camera1", "observation.images.wrist": "observation.images.camera2"}'
     EXTRA_ARGS="--policy.path=${POLICY_PATH} --rename_map='${RENAME_MAP}'"
     ;;
@@ -67,11 +75,13 @@ esac
 
 # BATCH_SIZE=64
 # STEPS=30000
-# SAVE_FREQ=4000
+# SAVE_FREQ=2000
+# CHUNK_SIZE=50
+# N_ACTION_STEPS=50
 
 TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
 DATASET_NAME=$(basename "$DATASET_ROOT")
-JOB_NAME="${MODEL_NAME}_${DATASET_NAME}_bs${BATCH_SIZE}_${TIMESTAMP}"
+JOB_NAME="${MODEL_NAME}_${DATASET_NAME}_bs${BATCH_SIZE}_cs${CHUNK_SIZE}_${TIMESTAMP}"
 OUTPUT_DIR="outputs/train/${JOB_NAME}"
 
 echo "JOB_NAME: $JOB_NAME"
@@ -90,4 +100,6 @@ eval uv run lerobot-train \
   --wandb.enable=true \
   --wandb.disable_artifact=true \
   --policy.push_to_hub=false \
-  --save_freq=${SAVE_FREQ}
+  --save_freq=${SAVE_FREQ} \
+  --policy.chunk_size=${CHUNK_SIZE} \
+  --policy.n_action_steps=${N_ACTION_STEPS}
