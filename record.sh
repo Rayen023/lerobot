@@ -1,12 +1,19 @@
 TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
 
-# DATASET_REPO_ID="Rayen023/sort-blocks-3_${TIMESTAMP}"
-# DATASET_ROOT="/home/recherche-a/OneDrive_recherche_a/Linux_onedrive/Projects_linux/Thesis/lerobot/datasets/${DATASET_REPO_ID}"
+# DATASET_REPO_ID="Rayen023/sort-blocks-3_20251114_191052"
+# DATASET_ROOT="/home/recherche-a/OneDrive_recherche_a/Linux_onedrive/Projects_linux/Thesis/lerobot/datasets/Rayen023/sort-blocks-3_20251114_191052"
 
-DATASET_REPO_ID="Rayen023/sort-blocks-3_20251114_191052"
-DATASET_ROOT="/home/recherche-a/OneDrive_recherche_a/Linux_onedrive/Projects_linux/Thesis/lerobot/datasets/Rayen023/sort-blocks-3_20251114_191052"
+# DATASET_REPO_ID="Rayen023/sort-blocks_${TIMESTAMP}"
+# SINGLE_TASK="Sort the blocks by color move all blue ones in the blue container and the green ones in the white container",
 
-SINGLE_TASK="Sort the blocks by color move all blue ones in the blue container and the green ones in the white container"
+DATASET_REPO_ID="Rayen023/pick-place-red-block_${TIMESTAMP}"
+SINGLE_TASK="Put the red lego block in the black cup",
+
+# DATASET_REPO_ID="Rayen023/table-cleanup_${TIMESTAMP}"
+# SINGLE_TASK="Grab pens and place into pen holder",
+
+DATASET_ROOT="/home/recherche-a/OneDrive_recherche_a/Linux_onedrive/Projects_linux/Thesis/lerobot/datasets/${DATASET_REPO_ID}"
+
 
 uv run lerobot-record \
   --robot.type=so101_follower \
@@ -35,11 +42,11 @@ uv run lerobot-record \
   --dataset.root="$DATASET_ROOT" \
   --dataset.single_task="$SINGLE_TASK" \
   --dataset.fps=30 \
-  --dataset.episode_time_s=600 \
-  --dataset.reset_time_s=600 \
-  --dataset.num_episodes=20 \
+  --dataset.episode_time_s=6000 \
+  --dataset.reset_time_s=6000 \
+  --dataset.num_episodes=100 \
   --dataset.video=true \
   --dataset.push_to_hub=false \
   --play_sounds=true \
   --display_data=false \
-  --resume=true
+  # --resume=true
