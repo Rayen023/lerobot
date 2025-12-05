@@ -4,7 +4,7 @@ import os
 from pathlib import Path
 
 # Base path to search
-BASE_PATH = "/mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/Data2/VLA_weights_evals/new"
+BASE_PATH = "/mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/weights"
 OUTPUT_FILE = "pretrained_models_list.txt"
 
 def find_pretrained_models(base_path):
