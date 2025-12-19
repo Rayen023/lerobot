@@ -169,6 +169,14 @@ uv run lerobot-edit-dataset \
     --push_to_hub false
 ```
 
+uv run lerobot-edit-dataset \
+    --repo_id /home/recherche-a/OneDrive_recherche_a/Linux_onedrive/Projects_linux/Thesis/datasets/merged-all-datasets \
+    --operation.type merge \
+    --operation.repo_ids "['/home/recherche-a/OneDrive_recherche_a/Linux_onedrive/Projects_linux/Thesis/datasets/cleanup-table-all', '/home/recherche-a/OneDrive_recherche_a/Linux_onedrive/Projects_linux/Thesis/datasets/pick-place-red-block-all', '/home/recherche-a/OneDrive_recherche_a/Linux_onedrive/Projects_linux/Thesis/datasets/sort-blocks-all']" \
+    --push_to_hub false
+```
+
+
 ### Augment Dataset with Quantile Stats
 ```bash
 # Basic usage
@@ -196,10 +204,10 @@ rsync -avz --progress -e "ssh -o StrictHostKeyChecking=no" recherche-a@198.164.3
 ### Sync Training Outputs
 ```bash
 # From fir server (new weights, with screen)
-screen -L rsync -avz --progress rayen@fir.alliancecan.ca:/home/rayen/scratch/lerobot/outputs/train/ /mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/Data2/VLA_weights_evals/new/
+screen -L rsync -avz --progress rayen@fir.alliancecan.ca:/home/rayen/scratch/lerobot/outputs/train/ /mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/weights/
 
 # To local server
-rsync -avz --progress -e "ssh -o StrictHostKeyChecking=no" outputs/train/ recherche-a@198.164.36.108:/mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/Data2/VLA_weights_evals/new/
+rsync -avz --progress -e "ssh -o StrictHostKeyChecking=no" outputs/train/ recherche-a@198.164.36.108:/mnt/67202c8a-ad15-4297-8aba-aeafd1dd3341/weights/
 ```
 
 ## Server Monitoring
