@@ -2,36 +2,32 @@
 #SBATCH --account=def-selouani
 #SBATCH --gres=gpu:h100:1
 #SBATCH --mem=80G
-#SBATCH --time=10:00:00
+#SBATCH --time=1-17:00
 #SBATCH --output=output/%N-%j.out
 
 module load cuda
 
-export HF_HOME="/home/rayen/scratch/lerobot/.cache/huggingface"
-export TRANSFORMERS_CACHE="/home/rayen/scratch/lerobot/.cache/huggingface/transformers"
-export HF_DATASETS_CACHE="/home/rayen/scratch/lerobot/.cache/huggingface/datasets"
-export WANDB_CACHE_DIR="/home/rayen/scratch/lerobot/.cache/wandb"
-export WANDB_DIR="/home/rayen/scratch/lerobot/.cache/wandb"
-export WANDB_DATA_DIR="/home/rayen/scratch/lerobot/.cache/wandb"
+MODEL_NAME="pi05"
+DATASET_ROOT="/home/rayen/scratch/lerobot/datasets/pick-place-red-block-all"
 
-# Hardcoded resume parameters
-OUTPUT_DIR="/home/rayen/scratch/lerobot/outputs/train/pi05_merged-pick-place-red-block-12_bs64_20251115_094542"
-JOB_NAME="pi05_merged-pick-place-red-block-12_bs64_20251115_094542"
-DATASET_ROOT="/home/rayen/scratch/lerobot/datasets/merged-pick-place-red-block-12"
-DATASET_NAME="merged-pick-place-red-block-12"
-
-# Pi05 parameters
 POLICY_PATH="lerobot/pi05_base"
 POLICY_TYPE="pi05"
 BATCH_SIZE=64
-STEPS=30000
-SAVE_FREQ=4000
+STEPS=60000
+SAVE_FREQ=2000
+CHUNK_SIZE=50
+N_ACTION_STEPS=50
 COMPILE_MODEL=true
 GRADIENT_CHECKPOINTING=true
 DTYPE=bfloat16
 SCHEDULER_DECAY_STEPS=3000
 
-echo "RESUMING JOB: $JOB_NAME from $OUTPUT_DIR"
+TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
+DATASET_NAME=$(basename "$DATASET_ROOT")
+JOB_NAME="${MODEL_NAME}_${DATASET_NAME}_bs${BATCH_SIZE}_cs${CHUNK_SIZE}_${TIMESTAMP}"
+OUTPUT_DIR="outputs/train/${JOB_NAME}"
+
+echo "JOB_NAME: $JOB_NAME"
 
 uv run lerobot-train \
   --policy.type=${POLICY_TYPE} \
@@ -52,4 +48,5 @@ uv run lerobot-train \
   --wandb.disable_artifact=true \
   --policy.push_to_hub=false \
   --save_freq=${SAVE_FREQ} \
-  --resume=true
+  --policy.chunk_size=${CHUNK_SIZE} \
+  --policy.n_action_steps=${N_ACTION_STEPS}

@@ -2,7 +2,6 @@
 
 import cv2
 
-# Open cameras
 cap0 = cv2.VideoCapture(0)
 cap2 = cv2.VideoCapture(2)
 
